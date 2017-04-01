@@ -45,9 +45,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class=" header-top-left">
                     <p>安徽大学: <span>计算机科学与技术学院</span></p>
                 </div>
-                <div class="header-top-login">
-                    <a href="login">|登录|</a>
-                </div>
                 <div class=" header-top-right">
                     <select class="drop-down drop-down-in">
                         <option value="1">中文</option>
@@ -58,7 +55,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </select>
                     <div class="clearfix"></div>
                 </div>
-
+                <div class="header-top-login">
+                    <a href="login">登录</a>
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>

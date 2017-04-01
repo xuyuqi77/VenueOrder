@@ -90,18 +90,19 @@ ul.slides li h5 {
     float: left;
 }
 
-.header-top-right {
-    float: right;
-    width: 15%;
-}
-
 .header-top-left p {
     color: #fff;
     font-size: 0.9em;
 }
 
+.header-top-right {
+    float: right;
+    width: 15%;
+}
+
 .header-top-login {
     float: right;
+    margin-right: 5px;
 }
 
 .header-top-login a {
