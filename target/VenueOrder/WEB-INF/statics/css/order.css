@@ -1,0 +1,17 @@
+.orderlist {
+    width: 800px;
+    height: auto;
+    margin: auto;
+}
+
+.orderlist table.ordertable {
+    width: 780px;
+    border-radius: 5px;
+    border-spacing: 0px;
+}
+
+.orderlist tr {
+    height: 40px;
+    text-align: center;
+    position: relative;
+}

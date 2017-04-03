@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public class VenueSportListDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
     public List listAllSport() {
         return null;
     }

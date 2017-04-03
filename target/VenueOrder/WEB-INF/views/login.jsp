@@ -23,12 +23,11 @@
 </head>
 <body>
 <h1>预订系统登录<sup>V2017</sup></h1>
-<c:if test="${requestScope.loginresult == 'fail'}">
+<c:if test="${loginresult == 'fail'}">
     <script>
         alert("帐号或密码错误！");
     </script>
 </c:if>
-
 <div class="login" style="margin-top:50px;">
     <div class="header">
         <div class="switch" id="switch">

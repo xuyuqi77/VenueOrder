@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>场馆</title>
@@ -59,6 +60,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </select>
                     <div class="clearfix"></div>
                 </div>
+                <div class="header-top-login">
+                    <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
+                        <a href="login">登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginresult == 'success'}">
+                        <a href="login">欢迎，${sessionScope.username}</a>
+                    </c:if>
+                </div>
 
                 <div class="clearfix"></div>
             </div>
@@ -77,7 +86,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     <ul>
                         <li><a href="index">首页</a></li>
-                        <li class="active"><a href="venue.jsp">场馆</a></li>
+                        <li class="active"><a href="venue">场馆</a></li>
                         <li><a href="order">场馆预订</a></li>
                         <li><a href="image">相册</a></li>
                         <li><a href="about">相关</a></li>

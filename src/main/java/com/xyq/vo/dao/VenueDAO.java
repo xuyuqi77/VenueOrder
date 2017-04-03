@@ -45,8 +45,6 @@ public class VenueDAO {
                 "on a.venue_id = b.venue_id ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         List<Object[]> lists = query.list();
-        List<Object[]> newlists = query.list();
-
         return lists;
     }
 }

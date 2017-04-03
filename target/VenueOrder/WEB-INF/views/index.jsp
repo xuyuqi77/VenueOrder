@@ -10,15 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic'
-          rel='stylesheet' type='text/css'>
+            Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
@@ -31,10 +24,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-    <!--pop-up-box-->
     <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-    <!--pop-up-box-->
 </head>
 <br>
 <!--header-->
@@ -56,7 +47,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="clearfix"></div>
                 </div>
                 <div class="header-top-login">
-                    <a href="login">登录</a>
+                    <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
+                        <a href="login">登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginresult == 'success'}">
+                        <a href="login">欢迎，${sessionScope.username}</a>
+                    </c:if>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -185,12 +181,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="col-md-6 footer-grid-in">
                 <ul class="footer-nav">
-                    <li><a href="index.html">Home</a>|</li>
-                    <li><a href="about.html">About</a>|</li>
-                    <li><a href="services.html">Services</a>|</li>
-                    <li><a href="typography.html">Typography</a>|</li>
-                    <li><a href="gallery.html">Gallery</a>|</li>
-                    <li><a href="contact.html">Mail</a></li>
+                    <li class="active"><a href="index">首页</a></li>
+                    <li><a href="venue">场馆</a></li>
+                    <li><a href="order">场馆预订</a></li>
+                    <li><a href="image">相册</a></li>
+                    <li><a href="about">相关</a></li>
                 </ul>
                 <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
             </div>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -9,40 +10,29 @@
 <html>
 <head>
     <title>场馆预定</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="js/jquery.min.js"></script>
-    <!-- Custom Theme files -->
-    <!--theme-style-->
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!--//theme-style-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/order.css" rel="stylesheet" type="text/css" media="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!--fonts-->
+            Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
     <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
-    <!--//fonts-->
-    <link rel="stylesheet" type="text/css" href="css/style5.css" />
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- js -->
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
-    <!--/script-->
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event){
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
                 event.preventDefault();
-                $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 900);
             });
         });
     </script>
-
+    <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+    <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 </head>
 <br>
 <!--header-->
@@ -101,7 +91,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 
 </br>
+<div>
+    <div>场馆选择</div>
+    <div>项目选择</div>
+</div>
 </br>
+
+<div class="orderlist" align="center">
+    <table class="ordertable" border="1" align="center">
+        <c:forEach items="${requestScope.orderTable}" var="a">
+            <tr style="text-align:center">
+                <c:forEach items="${a}" var="b" varStatus="b_flag">
+                    <td>
+                        ${b}
+                        <c:if test="${b_flag.last}">
+                            &nbsp;<a href="order">预定</a>
+                        </c:if>
+                    </td>
+                </c:forEach>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
+<br>
+<br>
+
 <div class="footer">
     <div class="container">
         <div class="footer-bottom-at">
