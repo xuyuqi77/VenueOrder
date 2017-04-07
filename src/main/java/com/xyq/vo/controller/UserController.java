@@ -13,7 +13,7 @@ import java.util.Date;
  * 用户控制器
  * Created by yqxu2 on 2017/2/28.
  */
-@Controller
+
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;

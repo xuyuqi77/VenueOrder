@@ -16,10 +16,8 @@
     <link href="css/order.css" rel="stylesheet" type="text/css" media="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-            Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <%--<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--%>
+    <%--<link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>--%>
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
@@ -30,6 +28,15 @@
                 $('html,body').animate({scrollTop: $(this.hash).offset().top}, 900);
             });
         });
+    </script>
+    <script>
+        function removeOne(index){
+            var obj=document.getElementById('order_choose_time');
+            var val = obj.options[index].value;
+            if (val = 0) {
+                obj.options.remove(index-1);
+            }
+        }
     </script>
     <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
@@ -90,33 +97,56 @@
     <h2>场馆预定</h2>
 </div>
 
-</br>
-<div>
-    <div>场馆选择</div>
-    <div>项目选择</div>
-</div>
-</br>
+<div class="order-all">
+    </br>
+    <div class="title-choose">
+        <div class="title-choose-venue">
+            场馆选择
+            <a href="/vo/afterchoose?c_venue='北体育馆'">北体育馆</a>
+            <a href="/vo/afterchoose?c_venue='北篮球场'">北篮球场</a>
+        </div>
+        <div class="title-choose-sport">
+            项目选择
+            <a href="/vo/afterchoose?c_sport='羽毛球'">羽毛球</a>
+            <a href="/vo/afterchoose?c_sport='篮球'">篮球</a>
+        </div>
+    </div>
+    </br>
+    <div class="orderlist" align="center">
+        <table class="ordertable" border="1" align="center">
+            <c:forEach items="${requestScope.orderTable}" var="a">
+                <tr style="text-align:center">
+                    <c:forEach items="${a}" var="b" varStatus="b_flag">
+                        <td>
+                            ${b}
+                            <%--<c:if test="${b_flag.last}">--%>
+                                <%--&nbsp;<a href="/vo/submitOrder?o_openingtime=">预定</a>--%>
+                            <%--</c:if>--%>
+                        </td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 
-<div class="orderlist" align="center">
-    <table class="ordertable" border="1" align="center">
-        <c:forEach items="${requestScope.orderTable}" var="a">
-            <tr style="text-align:center">
-                <c:forEach items="${a}" var="b" varStatus="b_flag">
-                    <td>
-                        ${b}
-                        <c:if test="${b_flag.last}">
-                            &nbsp;<a href="order">预定</a>
+    <div>
+        <select name="order_choose_time">
+            <c:forEach items="${requestScope.orderTable}" var="a">
+                    <c:forEach items="${a}" var="b" varStatus="b_flag">
+                        <c:if test="${b_flag.first}">
+                            <option value ="${b}">${b}</option>
                         </c:if>
-                    </td>
-                </c:forEach>
-            </tr>
-        </c:forEach>
-    </table>
+                        <c:if test="${b_flag.last}">
+
+                        </c:if>
+                    </c:forEach>
+            </c:forEach>
+        </select>
+        <button type="button">预定</button>
+    </div>
 </div>
-
 <br>
 <br>
-
 <div class="footer">
     <div class="container">
         <div class="footer-bottom-at">

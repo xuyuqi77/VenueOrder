@@ -47,4 +47,15 @@ public class VenueDAO {
         List<Object[]> lists = query.list();
         return lists;
     }
+
+    public String findVenueIdByVenueName(String venuename) {
+        String sql = "select venue_id from venue where venue_name = " + venuename + ";";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        if (query != null) {
+            List<String> lists = query.list();
+            String str = lists.get(0);
+            return str;
+        }
+        return null;
+    }
 }

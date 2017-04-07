@@ -21,6 +21,10 @@ public class OrderService {
     }
 
     public List<Object[]> listOrderTable(String venueid, String sport_name) {
-        return orderDAO.listOrderTable(venueid,sport_name);
+        return orderDAO.listOrderTable(venueid, sport_name);
+    }
+
+    public List<Object[]> listOrderTableByVnameSname(String venue_name, String sport_name) {
+        return orderDAO.listOrderTableByVnameSname(venue_name, sport_name);
     }
 }
