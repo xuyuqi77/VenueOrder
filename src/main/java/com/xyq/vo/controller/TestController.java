@@ -46,41 +46,13 @@ public class TestController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView toIndex() {
-        List<Object[]> list2 = sportService.showSportList();
-        return new ModelAndView("index", "vp_lists", list2);
-    }
-
-    /**
-     * 鉴定帐号密码是否正确
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("/verify")
-    public String verify(HttpServletRequest request, HttpServletResponse response) {
-        // 登录状态 默认未登录
-        String loginresult = null;
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        HttpSession session = request.getSession();
-        session.setAttribute("loginresult", loginresult);
-        if (username == null || password == null || "".equals(username) || "".equals(password)){
-            loginresult = "fail";
-            session.setAttribute("loginresult", loginresult);
-            return "login";
-        }
-        User user = userService.getUserByLoginname(username);
-        if (user == null || !user.getPassword().equals(password)) {
-            loginresult = "fail";
-            session.setAttribute("loginresult", loginresult);
-            return "login";
-        }
-        loginresult = "success";
-        session.setAttribute("username", username);
-        session.setAttribute("loginresult", loginresult);
+    public String toIndex(HttpServletRequest request) {
+        List<Object[]> list = sportService.showSportList();
+        request.getSession().setAttribute("vp_lists", list);
         return "index";
     }
+
+
 
     /**
      * 预定界面

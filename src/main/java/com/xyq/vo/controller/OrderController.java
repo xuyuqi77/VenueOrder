@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -24,11 +25,13 @@ public class OrderController {
 
     /**
      * 根据选择的场馆和项目显示表格
+     *
      * @param request
      * @return
      */
     @RequestMapping("/afterchoose")
-    public ModelAndView toOrderAfterChoose(HttpServletRequest request) {
+    public ModelAndView toOrderAfterChoose(HttpServletRequest request) throws Exception {
+        request.setCharacterEncoding("UTF-8");
         String venue = request.getParameter("c_venue");
         String sport = request.getParameter("c_sport");
         if (null != venue && !"".equals(venue))
@@ -42,8 +45,24 @@ public class OrderController {
     }
 
     @RequestMapping("/submitOrder")
-    public String sumbitOrder() {
-        return null;
+    public ModelAndView sumbitOrder(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+        String loginresult = (String) request.getSession().getAttribute("loginresult");
+        if (username == null || "".equals(username) || loginresult.equals("fail")) {
+            return new ModelAndView("login", "orderreslut", "unlogin");
+        }
+        String optionvalue = request.getParameter("option_value"); // 使用时间
+        String venue = (String) request.getSession().getAttribute("c_venue");
+        String sport = (String) request.getSession().getAttribute("c_sport");
+        String result = orderService.sumbitOrder(username, venue, sport, optionvalue);
+        if (result.equals("success")) {
+            return new ModelAndView("order", "orderresult", "success");
+        } else if (result.equals("下单失败,余量不足")) {
+            return new ModelAndView("order", "orderresult", "unenough");
+        } else if (result.equals("用户已处于下单状态")) {
+            return new ModelAndView("order", "orderresult", "userordered");
+        }
+        return new ModelAndView("order", "orderresult", "fail");
     }
 
 }
