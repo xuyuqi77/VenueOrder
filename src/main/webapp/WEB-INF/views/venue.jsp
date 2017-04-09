@@ -23,8 +23,6 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--fonts-->
-    <%--<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--%>
-    <%--<link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>--%>
     <!--//fonts-->
     <link rel="stylesheet" type="text/css" href="css/style5.css" />
     <!-- Bootstrap core JavaScript

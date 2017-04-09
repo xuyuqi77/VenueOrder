@@ -11,8 +11,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
             Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <%--<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--%>
-    <%--<link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>--%>
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
