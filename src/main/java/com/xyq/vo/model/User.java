@@ -46,7 +46,7 @@ public class User {
      * 最近登录时间
      */
     @Column(name = "lastlogintime")
-    private String lastlogintime;
+    private Timestamp lastlogintime;
     /**
      * 预订状态
      */
@@ -56,7 +56,7 @@ public class User {
     public User() {
     }
 
-    public User(String user_id, String login_name, String password, String user_name, String role_id, String lastlogintime, String ordered) {
+    public User(String user_id, String login_name, String password, String user_name, String role_id, Timestamp lastlogintime, String ordered) {
         this.user_id = user_id;
         this.login_name = login_name;
         this.password = password;
@@ -106,15 +106,15 @@ public class User {
         this.role_id = role_id;
     }
 
-    public String getLastlogintime() {
+    public Timestamp getLastlogintime() {
         return lastlogintime;
     }
 
-    public void setLastlogintime(String lastlogintime) {
+    public void setLastlogintime(Timestamp lastlogintime) {
         this.lastlogintime = lastlogintime;
     }
 
-    public String getOrdered() {
+    public String getOrdered(Object o) {
         return ordered;
     }
 

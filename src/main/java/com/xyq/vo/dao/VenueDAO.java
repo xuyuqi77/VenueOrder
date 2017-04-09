@@ -49,7 +49,7 @@ public class VenueDAO {
     }
 
     public String findVenueIdByVenueName(String venuename) {
-        String sql = "select venue_id from venue where venue_name = '" + venuename + "';";
+        String sql = "select venue_id from venue where venue_name = " + venuename + ";";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         if (query != null) {
             List<String> lists = query.list();

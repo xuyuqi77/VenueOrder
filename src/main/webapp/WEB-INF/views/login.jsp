@@ -1,11 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2017/3/27
+  Time: 10:48
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>登录页面</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="images/login.js"></script>
+    <script>
+        function myFunction()
+        {
+            alert("帐号或密码错误！");
+        }
+    </script>
     <link href="css/login2.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -13,11 +26,6 @@
 <c:if test="${loginresult == 'fail'}">
     <script>
         alert("帐号或密码错误！");
-    </script>
-</c:if>
-<c:if test="${regresult == 'success'}">
-    <script>
-        alert("注册成功！");
     </script>
 </c:if>
 <div class="login" style="margin-top:50px;">
@@ -77,12 +85,13 @@
     <div class="qlogin" id="qlogin" style="display: none; ">
 
         <div class="web_login">
-            <form name="form2" id="regUser" accept-charset="utf-8" action="/vo/add" method="post">
+            <form name="form2" id="regUser" accept-charset="utf-8" action="http://www.js-css.cn" method="post">
                 <input type="hidden" name="to" value="reg"/>
                 <input type="hidden" name="did" value="0"/>
                 <ul class="reg_form" id="reg-ul">
-                    <div id="userCue" class="cue">欢迎注册使用预订系统</div>
+                    <div id="userCue" class="cue">快速注册请注意格式</div>
                     <li>
+
                         <label for="user" class="input-tips2">用户名：</label>
                         <div class="inputOuter2">
                             <input type="text" id="user" name="user" maxlength="16" class="inputstyle2"/>
@@ -100,27 +109,35 @@
                     <li>
                         <label for="passwd2" class="input-tips2">确认密码：</label>
                         <div class="inputOuter2">
-                            <input type="password" id="passwd2" name="passwd2" maxlength="16" class="inputstyle2"/>
+                            <input type="password" id="passwd2" name="" maxlength="16" class="inputstyle2"/>
                         </div>
 
                     </li>
 
                     <li>
-                        <label for="nickname" class="input-tips2">昵称：</label>
+                        <label for="qq" class="input-tips2">QQ：</label>
                         <div class="inputOuter2">
-                            <input type="text" id="nickname" name="nickname" maxlength="10" class="inputstyle2"/>
+
+                            <input type="text" id="qq" name="qq" maxlength="10" class="inputstyle2"/>
                         </div>
+
                     </li>
 
                     <li>
                         <div class="inputArea">
-                            <input type="button" id="reg" style="margin-top:10px;margin-left:85px;" class="button_blue" value="注册"/>
+                            <input type="button" id="reg" style="margin-top:10px;margin-left:85px;" class="button_blue"
+                                   value="同意协议并注册"/> <a href="#" class="zcxy" target="_blank">注册协议</a>
                         </div>
+
                     </li>
                     <div class="cl"></div>
                 </ul>
             </form>
+
+
         </div>
+
+
     </div>
     <!--注册end-->
 </div>

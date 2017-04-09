@@ -1,20 +1,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2017/3/14
+  Time: 10:49
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>场馆预定</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
-    <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+    <script src="js/jquery.min.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="css/order.css" rel="stylesheet" type="text/css" media="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script src="js/order.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%--<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>--%>
+    <%--<link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>--%>
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -23,6 +29,17 @@
             });
         });
     </script>
+    <script>
+        function removeOne(index){
+            var obj=document.getElementById('order_choose_time');
+            var val = obj.options[index].value;
+            if (val = 0) {
+                obj.options.remove(index-1);
+            }
+        }
+    </script>
+    <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+    <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 </head>
 <br>
 <!--header-->
@@ -79,38 +96,19 @@
 <div class="banner banner5">
     <h2>场馆预定</h2>
 </div>
-<c:if test="${orderresult == 'success'}">
-    <script>
-        alert("预定成功！");
-    </script>
-</c:if>
-<c:if test="${orderresult == 'fail'}">
-    <script>
-        alert("预定失败！");
-    </script>
-</c:if>
-<c:if test="${orderresult == 'unenough'}">
-    <script>
-        alert("预定项目余量不足！");
-    </script>
-</c:if>
-<c:if test="${orderresult == 'userordered'}">
-    <script>
-        alert("该用户已预定项目，无法预定！");
-    </script>
-</c:if>
+
 <div class="order-all">
     </br>
     <div class="title-choose">
         <div class="title-choose-venue">
             场馆选择
-            <a href="/vo/afterchoose?c_venue=北体育馆">北体育馆</a>
-            <a href="/vo/afterchoose?c_venue=北篮球场">北篮球场</a>
+            <a href="/vo/afterchoose?c_venue='北体育馆'">北体育馆</a>
+            <a href="/vo/afterchoose?c_venue='北篮球场'">北篮球场</a>
         </div>
         <div class="title-choose-sport">
             项目选择
-            <a href="/vo/afterchoose?c_sport=羽毛球">羽毛球</a>
-            <a href="/vo/afterchoose?c_sport=篮球">篮球</a>
+            <a href="/vo/afterchoose?c_sport='羽毛球'">羽毛球</a>
+            <a href="/vo/afterchoose?c_sport='篮球'">篮球</a>
         </div>
     </div>
     </br>
@@ -132,9 +130,8 @@
     </div>
 
     <div>
-        <c:if test="${sessionScope.c_venue != null and sessionScope.c_sport != null}">
-            <select id="order_choose_time">
-                <c:forEach items="${requestScope.orderTable}" var="a">
+        <select name="order_choose_time">
+            <c:forEach items="${requestScope.orderTable}" var="a">
                     <c:forEach items="${a}" var="b" varStatus="b_flag">
                         <c:if test="${b_flag.first}">
                             <option value ="${b}">${b}</option>
@@ -143,10 +140,9 @@
 
                         </c:if>
                     </c:forEach>
-                </c:forEach>
-            </select>
-            <button onclick="getOptionValue()">按钮</button>
-        </c:if>
+            </c:forEach>
+        </select>
+        <button type="button">预定</button>
     </div>
 </div>
 <br>

@@ -27,9 +27,4 @@ public class OrderService {
     public List<Object[]> listOrderTableByVnameSname(String venue_name, String sport_name) {
         return orderDAO.listOrderTableByVnameSname(venue_name, sport_name);
     }
-
-    public String sumbitOrder(String username, String venuename, String sportname, String ordertime) {
-        return orderDAO.sumbitOrder(username, venuename, sportname, ordertime);
-    }
-
 }

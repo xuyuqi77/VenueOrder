@@ -26,11 +26,22 @@ public class UserService {
         userDAO.add(user);
     }
 
+    public void deleteUser(User user) {
+        userDAO.delete(user);
+    }
+
+    public void updateUser(User user) {
+        userDAO.update(user);
+    }
+
     public User getUserByLoginname(String loginname) {
         return userDAO.getUserByLoginname(loginname);
     }
 
-    public int getUserNum() {
-        return userDAO.getUserNum();
+    public List<User> getAllUser() {
+        return userDAO.getAllUser();
+    }
+
+    public void UpdateUserOrdered(User user, String ordered) {
     }
 }
