@@ -1,0 +1,36 @@
+#wrapper{
+    width:960px;
+    height: 600px;
+    margin:0 auto;
+}
+
+
+.sub-nav{
+    width:178px;
+    border:1px solid #ddd;
+    border-top:3px solid #03a9f4;
+    background:#fbfbfb  repeat-y;
+    float: left;
+    min-height:620px;
+    height: 55%
+}
+.sub-nav dl dt{
+    text-align:center;
+    line-height:45px;
+    font-size:18px;
+    line-height:45px;
+    color:#444444;
+    font-weight:bold;
+    background: no-repeat center bottom;
+}
+.sub-nav dl dd{ line-height:35px; line-height:35px;  font-size:14px; color:#666;}
+.sub-nav dl dd a{ background: no-repeat 15px center;text-indent:35px; display:block; width:178px; height:35px; line-height:35px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
+.sub-nav dl dd a.cur{ background: repeat-y; display:block; width:178px; height:35px; line-height:35px; color:#398439; text-decoration:none;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
+.sub-nav dl dd a:hover{ background: repeat-y; display:block; width:178px; height:35px; line-height:35px; color:#fff; text-decoration:none;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
+.sub-nav dl dd a:hover span{ background: no-repeat 15px center;text-indent:35px; display:block; width:178px; height:35px; line-height:35px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
+
+.sub-content-con .title-box{ line-height:55px; height:55px; font-size:24px; text-align:center;}
+.sub-content-con{ width:768px;min-height:598px; height:100%; background:#fff; float:right; border:1px solid #ddd;}
+.sub-content-left{ width:968px; background:#fff; margin-left: auto;margin-right: auto; border:1px solid #ddd;}
+
+.position-bar{ height:30px; line-height:30px; padding-left:15px; background: repeat-x; border-bottom:1px solid #ccc;}

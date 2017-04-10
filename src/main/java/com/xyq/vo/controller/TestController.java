@@ -1,7 +1,5 @@
 package com.xyq.vo.controller;
 
-import com.xyq.vo.common.Result;
-import com.xyq.vo.model.User;
 import com.xyq.vo.service.OrderService;
 import com.xyq.vo.service.SportService;
 import com.xyq.vo.service.UserService;
@@ -9,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -76,7 +71,7 @@ public class TestController {
 
     @RequestMapping("/image")
     public String toImage() {
-        return "image";
+        return "picture";
     }
 
     @RequestMapping("/about")
