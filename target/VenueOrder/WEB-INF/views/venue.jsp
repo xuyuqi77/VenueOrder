@@ -11,28 +11,18 @@
 <head>
     <title>场馆</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
-    <!-- Custom Theme files -->
-    <!--theme-style-->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!--//theme-style-->
+    <link href="css/venue.css" rel="stylesheet" type="text/css" media="all" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+            Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!--fonts-->
-    <!--//fonts-->
     <link rel="stylesheet" type="text/css" href="css/style5.css" />
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- js -->
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
-    <!--/script-->
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(".scroll").click(function(event){
@@ -106,7 +96,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="banner banner5">
     <h2>场馆</h2>
 </div>
+<div id="wrapper" style="margin-top:20px;">
+    <div class="sub-content clear marginb20">
+        <div class="sub-nav" id="sub-nav">
+            <dl>
+                <dt>全部场馆</dt>
+                <dd><a href="" class="cur"><span>体育馆</span></a></dd>
+                <dd><a href="" ><span>北体育场</span></a></dd>
+                <dd><a href="" ><span>北篮球场</span></a></dd>
+                <dd><a href="" ><span>南篮球场</span></a></dd>
+                <dd><a href="" ><span>南足球场</span></a></dd>
+            </dl>
+        </div>
+        <div class="sub-content-con clear">
+            <div class="position-bar">当前位置：<a href="index">首页</a> > 场馆</div>
+            <div class="list-content">
+                <div style="width:100%;height:200px;">
+                    <div class="img-box" style="padding-left:10px;padding-top:15px;display:inline;float:left;">
+                        <img src="" width="300" height="200" />
+                    </div>
+                    <div style="width:450px;padding-top:13px;float:right">
+                        <p>
+                            <b><a href="" target=_blank>综合体育馆</a></b>
+                        </p>
+                        <p>
+                            一座集体育比赛、训练、教学、会议、演出为一体的综合性场馆，比赛场地最大55m×35m。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+</div>
 </br>
 </br>
 <div class="footer">
