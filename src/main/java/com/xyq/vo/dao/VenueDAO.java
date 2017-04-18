@@ -39,10 +39,12 @@ public class VenueDAO {
      * @return
      */
     public List<Object[]> listAllSport() {
-        String sql = "select concat(b.venue_name,'  ',a.sport_name),a.opening_times,a.sport_num from newsport a left join venue b on a.venue_id = b.venue_id;";
-        String hql = "select new List(a.venue_name,b.sport_name,b.sport_num) " +
-                "from com.xyq.vo.model.Venue as a left join com.xyq.vo.model.Sport as b " +
-                "on a.venue_id = b.venue_id ";
+        String sql =
+                "select b.venue_name,a.sport_name,a.opening_times,a.sport_num " +
+                "from newsport a " +
+                "left join venue b " +
+                "on a.venue_id = b.venue_id " +
+                "order by b.venue_name,a.sport_name,a.opening_times;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         List<Object[]> lists = query.list();
         return lists;

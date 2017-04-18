@@ -25,7 +25,7 @@
 }
 .sub-nav dl dd{ line-height:35px; line-height:35px;  font-size:14px; color:#666;}
 .sub-nav dl dd a{ background: no-repeat 15px center;text-indent:35px; display:block; width:178px; height:35px; line-height:35px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
-.sub-nav dl dd a.cur{ background: repeat-y; display:block; width:178px; height:35px; line-height:35px; color:#fff; text-decoration:none;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
+.sub-nav dl dd a.cur{ background: repeat-y; display:block; width:178px; height:35px; line-height:35px; color:#888888; text-decoration:none;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
 .sub-nav dl dd a:hover{ background: repeat-y; display:block; width:178px; height:35px; line-height:35px; color:#fff; text-decoration:none;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
 .sub-nav dl dd a:hover span{ background: no-repeat 15px center;text-indent:35px; display:block; width:178px; height:35px; line-height:35px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;}
 
@@ -37,8 +37,8 @@
 
 .list-content {
 }
-/*.list-content li{ line-height:29px; line-height:29px; background: no-repeat 5px center; border-bottom:1px dashed #ddd; padding:0 5px 0 20px;}*/
-/*.list-content li span{ float:right;}*/
-/*.list-content li span.time{ color:#0E7ECA; margin-left:75px;}*/
-/*.list-content li span.cg-name{ color:#87118B; margin-left:10px;}*/
-/*.list-content ul{ padding:5px 25px;}*/
+.list-content li{ line-height:29px; line-height:29px; background: no-repeat 5px center; border-bottom:1px dashed #ddd; padding:0 5px 0 20px;}
+.list-content li span{ float:right;}
+.list-content li span.time{ color:#0E7ECA; margin-left:75px;}
+.list-content li span.cg-name{ color:#87118B; margin-left:10px;}
+.list-content ul{ padding:5px 25px;}

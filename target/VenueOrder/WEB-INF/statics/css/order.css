@@ -1,5 +1,3 @@
-
-
 .orderlist {
     width: 800px;
     height: auto;
@@ -19,11 +17,7 @@
 }
 
 .title-choose {
-    text-align: center;
-}
-.title-choose-venue {
-
-}
-.title-choose-sport {
-
+    text-align: left;
+    position: relative;
+    left: 550px;
 }

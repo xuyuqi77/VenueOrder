@@ -5,6 +5,7 @@
 <head>
     <title>首页</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/index.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="js/jquery.min.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,10 +38,6 @@
                 <div class=" header-top-right">
                     <select class="drop-down drop-down-in">
                         <option value="1">中文</option>
-                        <!--
-                        <option value="2">中文</option>
-                        <option value="3">中文</option>
-                        -->
                     </select>
                     <div class="clearfix"></div>
                 </div>
@@ -69,7 +66,7 @@
                         <li class="active"><a href="index">首页</a></li>
                         <li><a href="venue">场馆</a></li>
                         <li><a href="order">场馆预订</a></li>
-                        <li><a href="image">相册</a></li>
+                        <li><a href="picture">相册</a></li>
                         <li><a href="about">相关</a></li>
                     </ul>
                     <script>
@@ -129,9 +126,6 @@
 <div class="welcome">
     <div class="container">
         <h2>欢迎使用场馆预订系统</h2>
-        <p>14 teams qualify for the 2013 Rugby League World Cup: Australia, England, New Zealand, Samoa, Wales, Fiji,
-            France, Papua New Guinea, Ireland, Scotland, Tonga, Cook Islands, Italy and United States of America. The
-            Tri-Nations series is expanded to include Argentina, and is renamed The Rugby Championship.</p>
     </div>
 </div>
 <div class="liebiaotou" align="center">
@@ -158,9 +152,9 @@
             <c:forEach items="${a}" var="b" varStatus="b_flag">
                 <td>
                     ${b}
-                    <c:if test="${b_flag.last}">
-                        &nbsp;<a href="order">查看</a>
-                    </c:if>
+                    <%--<c:if test="${b_flag.last}">--%>
+                        <%--&nbsp;<a href="order">查看</a>--%>
+                    <%--</c:if>--%>
                 </td>
             </c:forEach>
         </tr>
@@ -182,7 +176,7 @@
                     <li class="active"><a href="index">首页</a></li>
                     <li><a href="venue">场馆</a></li>
                     <li><a href="order">场馆预订</a></li>
-                    <li><a href="image">相册</a></li>
+                    <li><a href="picture">相册</a></li>
                     <li><a href="about">相关</a></li>
                 </ul>
                 <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>

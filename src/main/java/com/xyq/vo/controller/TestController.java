@@ -1,8 +1,10 @@
 package com.xyq.vo.controller;
 
+import com.xyq.vo.common.Trans;
 import com.xyq.vo.service.OrderService;
 import com.xyq.vo.service.SportService;
 import com.xyq.vo.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,6 @@ public class TestController {
 
     private SportService sportService;
 
-    private UserService userService;
 
     private OrderService orderService;
 
@@ -31,15 +32,15 @@ public class TestController {
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 
+    /**
+     * 首页界面
+     * @param request
+     * @return
+     */
     @RequestMapping("/index")
     public String toIndex(HttpServletRequest request) {
         List<Object[]> list = sportService.showSportList();
@@ -47,33 +48,57 @@ public class TestController {
         return "index";
     }
 
-
-
     /**
      * 预定界面
      * @return
      */
     @RequestMapping("/order")
-    public ModelAndView toOrder() {
+    public String toOrder(HttpServletRequest request) {
         List<Object[]> list = orderService.listOrderTable("","");
-        return new ModelAndView("order", "orderTable", list);
+        request.getSession().setAttribute("orderTable", list);
+        return "order";
     }
 
-    @RequestMapping("/show")
-    public String show() {
-        return "ttt1";
-    }
-
+    /**
+     * 场馆界面
+     * @param request
+     * @return
+     */
     @RequestMapping("/venue")
-    public String toVenue() {
+    public String toVenue(HttpServletRequest request) {
+        String pic = request.getParameter("pic");
+        String word = request.getParameter("word");
+        if (StringUtils.isNotBlank(pic) && StringUtils.isNotBlank(word)) {
+            request.getSession().setAttribute("venue_pic", Trans.toPic(pic));
+            request.getSession().setAttribute("venue_word", Trans.toWord(word));
+        } else {
+            request.getSession().setAttribute("venue_pic", Trans.toPic("1"));
+            request.getSession().setAttribute("venue_word", Trans.toWord("1"));
+        }
         return "venue";
     }
 
-    @RequestMapping("/image")
-    public String toImage() {
+    /**
+     * 相册界面
+     * @return
+     */
+    @RequestMapping("/picture")
+    public String toImage(HttpServletRequest request) {
+        String ven = request.getParameter("ven");
+        if (StringUtils.isNotBlank(ven)) {
+            request.getSession().setAttribute("image_ven", Trans.toVenueName(ven));
+            request.getSession().setAttribute("image_pic", Trans.toVenuePic(ven));
+        } else {
+            request.getSession().setAttribute("image_ven", Trans.toVenueName("1"));
+            request.getSession().setAttribute("image_pic", Trans.toVenuePic("1"));
+        }
         return "picture";
     }
 
+    /**
+     * 相关界面
+     * @return
+     */
     @RequestMapping("/about")
     public String toAbout() {
         return "about";

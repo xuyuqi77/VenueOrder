@@ -76,7 +76,7 @@
                         <li><a href="index">首页</a></li>
                         <li class="active"><a href="venue">场馆</a></li>
                         <li><a href="order">场馆预订</a></li>
-                        <li><a href="image">相册</a></li>
+                        <li><a href="picture">相册</a></li>
                         <li><a href="about">相关</a></li>
                     </ul>
                     <script>
@@ -101,11 +101,11 @@
         <div class="sub-nav" id="sub-nav">
             <dl>
                 <dt>全部场馆</dt>
-                <dd><a href="" class="cur"><span>体育馆</span></a></dd>
-                <dd><a href="" ><span>北体育场</span></a></dd>
-                <dd><a href="" ><span>北篮球场</span></a></dd>
-                <dd><a href="" ><span>南篮球场</span></a></dd>
-                <dd><a href="" ><span>南足球场</span></a></dd>
+                <dd><a href="venue?pic=1&word=1"><span>体育馆</span></a></dd>
+                <dd><a href="venue?pic=2&word=2" ><span>北体育场</span></a></dd>
+                <dd><a href="venue?pic=3&word=3" ><span>北篮球场</span></a></dd>
+                <dd><a href="venue?pic=4&word=4" ><span>南篮球场</span></a></dd>
+                <dd><a href="venue?pic=5&word=5" ><span>南足球场</span></a></dd>
             </dl>
         </div>
         <div class="sub-content-con clear">
@@ -113,15 +113,10 @@
             <div class="list-content">
                 <div style="width:100%;height:200px;">
                     <div class="img-box" style="padding-left:10px;padding-top:15px;display:inline;float:left;">
-                        <img src="" width="300" height="200" />
+                        <img src="images/venues/${sessionScope.venue_pic}" width="300" height="200" />
                     </div>
                     <div style="width:450px;padding-top:13px;float:right">
-                        <p>
-                            <b><a href="" target=_blank>综合体育馆</a></b>
-                        </p>
-                        <p>
-                            一座集体育比赛、训练、教学、会议、演出为一体的综合性场馆，比赛场地最大55m×35m。
-                        </p>
+                        ${sessionScope.venue_word}
                     </div>
                 </div>
             </div>

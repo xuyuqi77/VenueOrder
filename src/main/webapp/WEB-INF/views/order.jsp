@@ -25,7 +25,6 @@
     </script>
 </head>
 <br>
-<!--header-->
 <div class="header">
     <div class="header-top">
         <div class="container">
@@ -39,7 +38,6 @@
                     </select>
                     <div class="clearfix"></div>
                 </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -50,27 +48,16 @@
                 <div class="logo">
                     <a href="index.html"><h1>场馆预订系统</h1></a>
                 </div>
-
-
                 <div class="top-nav">
                     <span class="menu"><img src="images/menu.png" alt=""> </span>
-
                     <ul>
                         <li><a href="index">首页</a></li>
                         <li><a href="venue">场馆</a></li>
                         <li class="active"><a href="order">场馆预订</a></li>
-                        <li><a href="image">相册</a></li>
+                        <li><a href="picture">相册</a></li>
                         <li><a href="about">相关</a></li>
                     </ul>
-                    <script>
-                        $("span.menu").click(function(){
-                            $(".top-nav ul").slideToggle(500, function(){
-                            });
-                        });
-                    </script>
-
                 </div>
-
                 <div class="clearfix"> </div>
             </div>
         </div>
@@ -99,31 +86,28 @@
         alert("该用户已预定项目，无法预定！");
     </script>
 </c:if>
-<div class="order-all">
-    </br>
-    <div class="title-choose">
-        <div class="title-choose-venue">
-            场馆选择
-            <a href="/vo/afterchoose?c_venue=北体育馆">北体育馆</a>
-            <a href="/vo/afterchoose?c_venue=北篮球场">北篮球场</a>
-        </div>
-        <div class="title-choose-sport">
-            项目选择
-            <a href="/vo/afterchoose?c_sport=羽毛球">羽毛球</a>
-            <a href="/vo/afterchoose?c_sport=篮球">篮球</a>
-        </div>
+</br>
+<div class="title-choose">
+    <div class="title-choose-venue">
+        场馆选择:
+        <a href="/vo/afterchoose?c_venue=北体育馆">北体育馆</a>
+        <a href="/vo/afterchoose?c_venue=北篮球场">北篮球场</a>
     </div>
-    </br>
+    <div class="title-choose-sport">
+        项目选择:
+        <a href="/vo/afterchoose?c_sport=羽毛球">羽毛球</a>
+        <a href="/vo/afterchoose?c_sport=篮球">篮球</a>
+    </div>
+</div>
+</br>
+<div class="order-all">
     <div class="orderlist" align="center">
         <table class="ordertable" border="1" align="center">
-            <c:forEach items="${requestScope.orderTable}" var="a">
+            <c:forEach items="${sessionScope.orderTable}" var="a">
                 <tr style="text-align:center">
                     <c:forEach items="${a}" var="b" varStatus="b_flag">
                         <td>
                             ${b}
-                            <%--<c:if test="${b_flag.last}">--%>
-                                <%--&nbsp;<a href="/vo/submitOrder?o_openingtime=">预定</a>--%>
-                            <%--</c:if>--%>
                         </td>
                     </c:forEach>
                 </tr>
@@ -139,13 +123,10 @@
                         <c:if test="${b_flag.first}">
                             <option value ="${b}">${b}</option>
                         </c:if>
-                        <c:if test="${b_flag.last}">
-
-                        </c:if>
                     </c:forEach>
                 </c:forEach>
             </select>
-            <button onclick="getOptionValue()">按钮</button>
+            <button onclick="getOptionValue()">预定</button>
         </c:if>
     </div>
 </div>

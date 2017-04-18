@@ -1,0 +1,56 @@
+/*表格设置*/
+
+.liebiaotou {
+    width: 798px;
+    height: 50px;
+    margin: auto;
+}
+
+.liebiaotou table.bt {
+    width: 798px;
+    height: 50px;
+}
+
+.liebiaotou th {
+    height: 50px;
+    text-align: center;
+    position: relative;
+}
+
+.liebiaotou th:first-child {
+    border-top-left-radius:6px;
+}
+.liebiaotou th:last-child {
+    border-top-right-radius:6px;
+}
+.liebiaotou tr {
+    height: 40px;
+    text-align: center;
+    position: relative;
+}
+
+.liebiao {
+    width: 800px;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: auto;
+}
+
+.liebiao table.bzt {
+    width: 780px;
+    border-radius: 5px;
+    border-spacing: 0px;
+}
+
+.liebiao tr {
+    height: 40px;
+    text-align: center;
+    position: relative;
+}
+.liebiao td:first-child {
+    width: 200px;
+}
+.liebiao td:last-child {
+    width: 150px;
+}

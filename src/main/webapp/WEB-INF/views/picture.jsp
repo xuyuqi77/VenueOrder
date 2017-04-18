@@ -1,10 +1,4 @@
-order.jsp<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2017/3/14
-  Time: 10:49
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,6 +22,45 @@ order.jsp<%--
             });
         });
     </script>
+    <script type="text/javascript">
+        function AutoScroll(obj){
+            $(obj).find("ul:first").animate({
+                marginTop:"-24px"
+            },500,function(){
+                $(this).css({marginTop:"0px"}).find("li:first").appendTo(this);
+            });
+        }
+        $(document).ready(function(){
+            setInterval('AutoScroll("#scrollDiv")',2000)
+        });
+        function func(){
+            document.getElementById('search').value="";
+            var search=document.getElementById('search');
+            with(search.style){
+                color='black';
+            }
+        }
+    </script>
+    <style type="text/css">
+        .pic_small{
+            width:215px;
+            height:175px;
+            float: left;
+            margin:30px 10px 0 30px;
+        }
+        .pic_small p{
+            width:215px;
+            height:17px;
+            white-space:nowrap;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            font-size: 12px;
+            font-weight: bolder;
+        }
+        .left{
+            margin-right:5px;
+        }
+    </style>
 </head>
 <br>
 <div class="header">
@@ -42,6 +75,14 @@ order.jsp<%--
                         <option value="1">中文</option>
                     </select>
                     <div class="clearfix"></div>
+                </div>
+                <div class="header-top-login">
+                    <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
+                        <a href="login">登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginresult == 'success'}">
+                        <a href="login">欢迎，${sessionScope.username}</a>
+                    </c:if>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -59,7 +100,7 @@ order.jsp<%--
                         <li><a href="index">首页</a></li>
                         <li><a href="venue">场馆</a></li>
                         <li><a href="order">场馆预订</a></li>
-                        <li class="active"><a href="image">相册</a></li>
+                        <li class="active"><a href="picture">相册</a></li>
                         <li><a href="about">相关</a></li>
                     </ul>
                     <script>
@@ -86,19 +127,20 @@ order.jsp<%--
         <div class="sub-nav" id="sub-nav">
             <dl>
                 <dt>按场馆浏览</dt>
-                <dd><a href="" class="cur"><span>气膜馆</span></a></dd>
-                <dd><a href="" ><span>综合体育馆</span></a></dd>
-                <dd><a href="" ><span>西体育馆</span></a></dd>
-                <dd><a href="" ><span>体育场</span></a></dd>
+                <dd><a href="picture?ven=1" ><span>体育馆</span></a></dd>
+                <dd><a href="picture?ven=2" ><span>北体育场</span></a></dd>
+                <dd><a href="picture?ven=3" ><span>北篮球场</span></a></dd>
+                <dd><a href="picture?ven=4" ><span>南篮球场</span></a></dd>
+                <dd><a href="picture?ven=5" ><span>南足球场</span></a></dd>
             </dl>
         </div>
 
 
         <div class="sub-content-con clear" style="height: 600px;">
             <div class="position-bar">当前位置：<a href="">首页</a>
-                > <a href="">气膜馆</a>
+                > ${sessionScope.image_ven}
                 > 相册</div>
-            <div class="title-box">气膜馆相册</div>
+            <div class="title-box">${sessionScope.image_ven}相册</div>
 
             <form id="phForm" action="" method="post">
                 <input type="hidden" value="cg" name="listmode"/>
@@ -106,76 +148,73 @@ order.jsp<%--
                 <input type="hidden" value="3998000" name="cgid"/>
             </form>
             <div class="list-content">
-                <div class="pic_small">
-                    <a href=""  target="_blank"><img alt="" src="" title="姜来老师上课" width="215px" height="138px"></a>
-                    <p><a href="" title="姜来老师上课" target="_blank">姜来老师上课</a></p>
-                </div>
+                ${sessionScope.image_pic}
             </div>
         </div>
-        <div class="badoo" style="margin-left: 20px;display: inline;">
-            <div class='A53DB362D4C16471DB13E901CC9F471C4'>
-                <span>共27条记录</span>
-                <span class='disabled'>首页</span>
-                <span class='disabled'>前一页</span>
-                <span class='current' title='1'>1</span>
-                <a href='' title='2'>2</a>
-                <a href='' title='3'>3</a>
-                <a href='' title='2'>后一页</a>
-                <a href='' title='3'>末页</a>
-                <span>当前[1/3]页</span>
-            </div>
-            <script type="text/javascript">
-            $(function(){
-                $(".A53DB362D4C16471DB13E901CC9F471C4 a").click(function(){
-                    var $pf=$("form#phForm");
-                    var currentPage=$(this).attr("title");
-                    var varPageSize="<input type='hidden' name='pageUtil.pageSize' value='9' id='pageSize'/>";
-                    var varCurrPage="<input type='hidden' name='pageUtil.currentPage' value='"+currentPage+"' id='currentPage' class='currentPage'/>";
-                    $pf.append(varPageSize);
-                    $pf.append(varCurrPage);
-                    $pf.submit();
-                    return false;
-                });
+        <%--<div class="badoo" style="margin-left: 20px;display: inline;">--%>
+            <%--<div class='A53DB362D4C16471DB13E901CC9F471C4'>--%>
+                <%--<span>共27条记录</span>--%>
+                <%--<span class='disabled'>首页</span>--%>
+                <%--<span class='disabled'>前一页</span>--%>
+                <%--<span class='current' title='1'>1</span>--%>
+                <%--<a href='' title='2'>2</a>--%>
+                <%--<a href='' title='3'>3</a>--%>
+                <%--<a href='' title='2'>后一页</a>--%>
+                <%--<a href='' title='3'>末页</a>--%>
+                <%--<span>当前[1/3]页</span>--%>
+            <%--</div>--%>
+            <%--<script type="text/javascript">--%>
+            <%--$(function(){--%>
+                <%--$(".A53DB362D4C16471DB13E901CC9F471C4 a").click(function(){--%>
+                    <%--var $pf=$("form#phForm");--%>
+                    <%--var currentPage=$(this).attr("title");--%>
+                    <%--var varPageSize="<input type='hidden' name='pageUtil.pageSize' value='6' id='pageSize'/>";--%>
+                    <%--var varCurrPage="<input type='hidden' name='pageUtil.currentPage' value='"+currentPage+"' id='currentPage' class='currentPage'/>";--%>
+                    <%--$pf.append(varPageSize);--%>
+                    <%--$pf.append(varCurrPage);--%>
+                    <%--$pf.submit();--%>
+                    <%--return false;--%>
+                <%--});--%>
 
-                $("form#phForm").submit(function(){
-                    var $pf=$(this);
-                    var callback=$pf.attr("callback");
-                    if(callback) {
-                        var ret=window[callback].call(window,this);
-                        if(!ret) return false;
-                    }
-                    var m=$pf.attr("method");
-                    if(m.toLowerCase()=="post"){
-                        return true;
-                    }else{
-                        var url=$pf.attr("action");
-                        var includes="";
-                        if(includes==""){
-                            var param=$pf.serialize();
-                            param=(param=="") ? "" : "?"+param;
-                            location.href=url + param;
-                        }else{
-                            var $form=$("<form></form>",{"method":"post","action":""}).appendTo("body");
-                            var arrIncludes=includes.split(",");
-                            var $mmpf=$pf.clone(false);
-                            for(var s in arrIncludes){
-                                var filter="input[name='"+arrIncludes[s]+"']";
-                                filter+=",select[name='"+arrIncludes[s]+"']";
-                                filter+=",textarea[name='"+arrIncludes[s]+"']";
-                                $form.append($mmpf.find(filter).hide());
-                                $mmpf.find(filter).remove();
-                            }
-                            var param=$mmpf.serialize();
-                            param=(param=="") ? "" : "?"+param ;
-                            $form.attr("action",url+param);
-                            $form.submit();
-                        }
-                        return false;
-                    }
-                });
-            });
-        </script>
-        </div>
+                <%--$("form#phForm").submit(function(){--%>
+                    <%--var $pf=$(this);--%>
+                    <%--var callback=$pf.attr("callback");--%>
+                    <%--if(callback) {--%>
+                        <%--var ret=window[callback].call(window,this);--%>
+                        <%--if(!ret) return false;--%>
+                    <%--}--%>
+                    <%--var m=$pf.attr("method");--%>
+                    <%--if(m.toLowerCase()=="post"){--%>
+                        <%--return true;--%>
+                    <%--}else{--%>
+                        <%--var url=$pf.attr("action");--%>
+                        <%--var includes="";--%>
+                        <%--if(includes==""){--%>
+                            <%--var param=$pf.serialize();--%>
+                            <%--param=(param=="") ? "" : "?"+param;--%>
+                            <%--location.href=url + param;--%>
+                        <%--}else{--%>
+                            <%--var $form=$("<form></form>",{"method":"post","action":""}).appendTo("body");--%>
+                            <%--var arrIncludes=includes.split(",");--%>
+                            <%--var $mmpf=$pf.clone(false);--%>
+                            <%--for(var s in arrIncludes){--%>
+                                <%--var filter="input[name='"+arrIncludes[s]+"']";--%>
+                                <%--filter+=",select[name='"+arrIncludes[s]+"']";--%>
+                                <%--filter+=",textarea[name='"+arrIncludes[s]+"']";--%>
+                                <%--$form.append($mmpf.find(filter).hide());--%>
+                                <%--$mmpf.find(filter).remove();--%>
+                            <%--}--%>
+                            <%--var param=$mmpf.serialize();--%>
+                            <%--param=(param=="") ? "" : "?"+param ;--%>
+                            <%--$form.attr("action",url+param);--%>
+                            <%--$form.submit();--%>
+                        <%--}--%>
+                        <%--return false;--%>
+                    <%--}--%>
+                <%--});--%>
+            <%--});--%>
+        <%--</script>--%>
+        <%--</div>--%>
     </div>
 </div>
 

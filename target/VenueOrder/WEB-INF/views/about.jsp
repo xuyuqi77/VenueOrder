@@ -1,39 +1,18 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2017/3/14
-  Time: 10:49
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
     <title>场馆预定</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link href="css/about.css" rel="stylesheet" type="text/css" media="all" />
     <script src="js/jquery.min.js"></script>
-    <!-- Custom Theme files -->
-    <!--theme-style-->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Rugby Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!--fonts-->
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,300italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.useso.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
-    <!--//fonts-->
+   <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link rel="stylesheet" type="text/css" href="css/style5.css" />
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- js -->
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
-    <!--/script-->
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(".scroll").click(function(event){
@@ -59,7 +38,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </select>
                     <div class="clearfix"></div>
                 </div>
-
+                <div class="header-top-login">
+                    <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
+                        <a href="login">登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginresult == 'success'}">
+                        <a href="login">欢迎，${sessionScope.username}</a>
+                    </c:if>
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -79,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li><a href="index">首页</a></li>
                         <li><a href="venue">场馆</a></li>
                         <li><a href="order">场馆预订</a></li>
-                        <li><a href="image">相册</a></li>
+                        <li><a href="picture">相册</a></li>
                         <li class="active"><a href="about">相关</a></li>
                     </ul>
                     <script>
@@ -102,6 +88,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </br>
 </br>
+<div id="about">
+    <div class="about-word">此系统为徐煜企的毕业设计</div>
+</div>
+</br>
+</br>
 <div class="footer">
     <div class="container">
         <div class="footer-bottom-at">
@@ -115,22 +106,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="clearfix"> </div>
         </div>
     </div>
-    <!---->
     <script type="text/javascript">
         $(document).ready(function() {
-            /*
-             var defaults = {
-             containerID: 'toTop', // fading element id
-             containerHoverID: 'toTopHover', // fading element hover id
-             scrollSpeed: 1200,
-             easingType: 'linear'
-             };
-             */
             $().UItoTop({ easingType: 'easeOutQuart' });
         });
     </script>
     <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-    <!---->
 </div>
 
 </body>
