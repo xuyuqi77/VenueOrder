@@ -54,8 +54,12 @@ public class TestController {
      */
     @RequestMapping("/order")
     public String toOrder(HttpServletRequest request) {
-        List<Object[]> list = orderService.listOrderTable("","");
-        request.getSession().setAttribute("orderTable", list);
+        if (request.getSession().getAttribute("orderTable") == null) {
+            List<Object[]> list = orderService.listOrderTable("","");
+            request.getSession().setAttribute("orderTable", list);
+            request.getSession().setAttribute("c_v_back", Trans.toOrderChooseVenue(null));
+            request.getSession().setAttribute("c_s_back", Trans.toOrderChooseSport(null));
+        }
         return "order";
     }
 

@@ -101,22 +101,19 @@
             <div class="callbacks_container">
                 <ul class="rslides" id="slider">
                     <li>
-                        <h3>Mini footy</h3>
-                        <p>Mini rugby league is a 9-a-side adapted version of the sport. It includes full contact but
-                            does not feature scrums and limits kicking to converting tries</p>
-                        <a href="about.html">Read More<i class="glyphicon glyphicon-arrow-right"> </i></a>
+                        <h3>运动，就是这么简单</h3>
+                        <p>Keep moving</p>
+                        <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                     <li>
-                        <h3>Mod league</h3>
-                        <p>Mod league follows on from mini footy; it introduces laws more common to the full
-                            international laws of rugby league, whilst also keeping the theme league.</p>
-                        <a href="about.html">Read More<i class="glyphicon glyphicon-arrow-right"> </i></a>
+                        <h3>享受运动，享受生活</h3>
+                        <p>Enjoy yourself</p>
+                        <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                     <li>
-                        <h3>Tag rugby</h3>
-                        <p>Tag rugby, or flag rugby, is a non-contact team game in which each player wears a belt that
-                            has two velcro tags attached to it, or shorts with velcro patch</p>
-                        <a href="about.html">Read More<i class="glyphicon glyphicon-arrow-right"> </i></a>
+                        <h3>健康，离不开运动</h3>
+                        <p>Exercise every day</p>
+                        <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,7 @@
 package com.xyq.vo.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -159,6 +161,41 @@ public class Trans {
                     "    <img alt=\"\" src=\"images/pictures/foot3.jpg\" title=\"3\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>3</p>\n" +
                     "</div>";
+        }
+        return null;
+    }
+
+    /**
+     *  转换order.jsp
+     * @param str
+     * @return
+     */
+    public static String toOrderChooseVenue(String str) {
+        if (str == null) {
+            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\">北体育馆</a>\n" +
+                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\">北篮球场</a>";
+        }
+        if (str.equals("北体育馆")) {
+            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\" class=\"cur\">北体育馆</a>" +
+                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\"> 北篮球场</a>";
+        } else if (str.equals("北篮球场")) {
+            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\">北体育馆</a>\n" +
+                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\" class=\"cur\">北篮球场</a>";
+        }
+        return null;
+    }
+
+    public static String toOrderChooseSport(String str) {
+        if (str == null) {
+            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\">羽毛球</a>\n" +
+                    "<a href=\"/vo/afterchoose?c_sport=篮球\">篮球</a>";
+        }
+        if (str.equals("羽毛球")) {
+            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\" class=\"cur2\">羽毛球</a>\n" +
+                    "<a href=\"/vo/afterchoose?c_sport=篮球\">篮球</a>";
+        } else if (str.equals("篮球")) {
+            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\">羽毛球</a>\n" +
+                    "<a href=\"/vo/afterchoose?c_sport=篮球\" class=\"cur2\">篮球</a>";
         }
         return null;
     }

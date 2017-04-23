@@ -1,3 +1,6 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -11,8 +14,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <script src="js/order.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/move-top.js"></script>
-    <script type="text/javascript" src="js/easing.js"></script>
+    <script src="js/move-top.js"></script>
+    <script src="js/easing.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -23,6 +26,8 @@
             });
         });
     </script>
+
+
 </head>
 <br>
 <div class="header">
@@ -37,6 +42,14 @@
                         <option value="1">中文</option>
                     </select>
                     <div class="clearfix"></div>
+                </div>
+                <div class="header-top-login">
+                    <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
+                        <a href="login">登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginresult == 'success'}">
+                        <a href="login">欢迎，${sessionScope.username}</a>
+                    </c:if>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -66,6 +79,106 @@
 <div class="banner banner5">
     <h2>场馆预定</h2>
 </div>
+</br>
+<div class="title-choose">
+    <div class="title-choose-venue">
+        <span>场馆选择:</span>
+        ${sessionScope.c_v_back}
+    </div>
+    <div class="title-choose-sport">
+        <span>项目选择:</span>
+        ${sessionScope.c_s_back}
+    </div>
+    <div class="title-choose-sport">
+        <span>预定日期:</span>
+        <span>
+            <%
+                SimpleDateFormat sdf =
+                        new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.DATE,1);
+                out.print(sdf.format(cal.getTime()));
+            %>
+            <span style="color:red;">&nbsp;注:目前只可预定第二天的场馆</span>
+        </span>
+    </div>
+</div>
+</br>
+<div class="order-all">
+    <!-- 显示选择了场馆与项目后的列表 -->
+    <c:if test="${(sessionScope.c_venue != null or sessionScope.c_sport != null) and sessionScope.orderTable != null}">
+        <div class="order-title">
+            <table class= "order-title-table">
+                <thead>
+                <tr class="">
+                    <th width="271px" bgcolor="#CDCD9A">开放时间</th>
+                    <th bgcolor="#CDCD9A">剩余数量</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </c:if>
+    <div class="orderlist" align="center">
+        <table class="ordertable" border="1" align="center">
+            <c:forEach items="${sessionScope.orderTable}" var="a">
+                <tr style="text-align:center">
+                    <c:forEach items="${a}" var="b" varStatus="b_flag">
+                        <td>
+                            ${b}
+                        </td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+    <!-- 显示预定的时间和预定按钮 -->
+    <div class="order-submit">
+        <c:if test="${sessionScope.c_venue != null and sessionScope.c_sport != null and sessionScope.orderTable != null}">
+            </br>
+            <span>预定时间：</span>
+            <select id="order_choose_time">
+                <c:forEach items="${sessionScope.orderTable}" var="a">
+                    <c:forEach items="${a}" var="b" varStatus="b_flag">
+                        <c:if test="${b_flag.first}">
+                            <option value ="${b}">${b}</option>
+                        </c:if>
+                    </c:forEach>
+                </c:forEach>
+            </select>
+            <button onclick="getOptionValue()">预定</button>
+        </c:if>
+    </div>
+
+    <!-- 如果还没有选择场馆与项目 -->
+    <c:if test="${sessionScope.c_venue == null and sessionScope.c_sport == null}">
+        <div class="order-point">
+            <span>请先选择场馆与项目再进行预定。</span>
+        </div>
+    </c:if>
+</div>
+<br>
+<br>
+<div class="footer">
+    <div class="container">
+        <div class="footer-bottom-at">
+            <div class="col-md-6 footer-grid">
+                <h3>Rugby</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="col-md-6 footer-grid-in">
+                <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $().UItoTop({easingType: 'easeOutQuart'});
+        });
+    </script>
+    <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</div>
 <c:if test="${orderresult == 'success'}">
     <script>
         alert("预定成功！");
@@ -86,82 +199,5 @@
         alert("该用户已预定项目，无法预定！");
     </script>
 </c:if>
-</br>
-<div class="title-choose">
-    <div class="title-choose-venue">
-        场馆选择:
-        <a href="/vo/afterchoose?c_venue=北体育馆">北体育馆</a>
-        <a href="/vo/afterchoose?c_venue=北篮球场">北篮球场</a>
-    </div>
-    <div class="title-choose-sport">
-        项目选择:
-        <a href="/vo/afterchoose?c_sport=羽毛球">羽毛球</a>
-        <a href="/vo/afterchoose?c_sport=篮球">篮球</a>
-    </div>
-</div>
-</br>
-<div class="order-all">
-    <div class="orderlist" align="center">
-        <table class="ordertable" border="1" align="center">
-            <c:forEach items="${sessionScope.orderTable}" var="a">
-                <tr style="text-align:center">
-                    <c:forEach items="${a}" var="b" varStatus="b_flag">
-                        <td>
-                            ${b}
-                        </td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
-
-    <div>
-        <c:if test="${sessionScope.c_venue != null and sessionScope.c_sport != null}">
-            <select id="order_choose_time">
-                <c:forEach items="${requestScope.orderTable}" var="a">
-                    <c:forEach items="${a}" var="b" varStatus="b_flag">
-                        <c:if test="${b_flag.first}">
-                            <option value ="${b}">${b}</option>
-                        </c:if>
-                    </c:forEach>
-                </c:forEach>
-            </select>
-            <button onclick="getOptionValue()">预定</button>
-        </c:if>
-    </div>
-</div>
-<br>
-<br>
-<div class="footer">
-    <div class="container">
-        <div class="footer-bottom-at">
-            <div class="col-md-6 footer-grid">
-                <h3>Rugby</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="col-md-6 footer-grid-in">
-                <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-    </div>
-    <!---->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            /*
-             var defaults = {
-             containerID: 'toTop', // fading element id
-             containerHoverID: 'toTopHover', // fading element hover id
-             scrollSpeed: 1200,
-             easingType: 'linear'
-             };
-             */
-            $().UItoTop({ easingType: 'easeOutQuart' });
-        });
-    </script>
-    <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
-    <!---->
-</div>
-
 </body>
 </html>

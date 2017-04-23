@@ -1,6 +1,8 @@
 package com.xyq.vo.controller;
 
+import com.xyq.vo.common.Trans;
 import com.xyq.vo.service.OrderService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,18 +32,32 @@ public class OrderController {
      * @return
      */
     @RequestMapping("/afterchoose")
-    public ModelAndView toOrderAfterChoose(HttpServletRequest request) throws Exception {
+    public String toOrderAfterChoose(HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("UTF-8");
+        // 获取选择的场馆
         String venue = request.getParameter("c_venue");
+        // 获取选择的项目
         String sport = request.getParameter("c_sport");
-        if (null != venue && !"".equals(venue))
+        if (null != venue && !"".equals(venue)) {
             request.getSession().setAttribute("c_venue", venue);
+        }
         if (null != sport && !"".equals(sport))
             request.getSession().setAttribute("c_sport", sport);
+        // 根据选项筛选符合条件的结果
         List<Object[]> list = orderService.listOrderTableByVnameSname(
                 (String) request.getSession().getAttribute("c_venue"),
                 (String) request.getSession().getAttribute("c_sport"));
-        return new ModelAndView("order", "orderTable", list);
+        if (list.size() == 0) {
+            request.getSession().setAttribute("orderTable", null);
+        } else {
+            request.getSession().setAttribute("orderTable", list);
+        }
+        // 选择场馆和项目后标红
+        request.getSession().setAttribute("c_v_back", Trans.toOrderChooseVenue(
+                (String) request.getSession().getAttribute("c_venue")));
+        request.getSession().setAttribute("c_s_back", Trans.toOrderChooseSport(
+                (String) request.getSession().getAttribute("c_sport")));
+        return "order";
     }
 
     @RequestMapping("/submitOrder")
@@ -56,6 +72,10 @@ public class OrderController {
         String sport = (String) request.getSession().getAttribute("c_sport");
         String result = orderService.sumbitOrder(username, venue, sport, optionvalue);
         if (result.equals("success")) {
+            List<Object[]> list = orderService.listOrderTableByVnameSname(
+                    (String) request.getSession().getAttribute("c_venue"),
+                    (String) request.getSession().getAttribute("c_sport"));
+            request.getSession().setAttribute("orderTable", list);
             return new ModelAndView("order", "orderresult", "success");
         } else if (result.equals("下单失败,余量不足")) {
             return new ModelAndView("order", "orderresult", "unenough");

@@ -1,13 +1,17 @@
 .orderlist {
-    width: 800px;
+    width: 600px;
     height: auto;
     margin: auto;
 }
 
 .orderlist table.ordertable {
-    width: 780px;
+    width: 600px;
     border-radius: 5px;
     border-spacing: 0px;
+}
+
+.orderlist td:first-child {
+    width: 400px;
 }
 
 .orderlist tr {
@@ -18,6 +22,60 @@
 
 .title-choose {
     text-align: left;
-    position: relative;
-    left: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 370px;
+    font-size:110%;
+    /*position: relative;*/
+    /*left: 550px;*/
+}
+.title-choose span {
+    color: slategray;
+}
+
+.cur {
+    color: brown;
+}
+.cur2 {
+    color: brown;
+}
+
+
+.order-all {
+
+}
+.order-title table.order-title-table {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-title table.order-title-table th{
+    height: 50px;
+    text-align: center;
+}
+.order-title table.order-title-table th:first-child{
+    border-top-left-radius:6px;
+    width: 400px;
+}
+.order-title table.order-title-table th:last-child{
+    border-top-right-radius:6px;
+}
+
+
+.order-submit {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.order-point {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 300px;
+    line-height: 200px;
+}
+.order-point span{
+    font-size: large;
 }
