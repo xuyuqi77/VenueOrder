@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by yqxu2 on 2017/2/21.
  */
-@Service("venueService")
+@Service
 @Transactional
 public class VenueService {
     private VenueDAO venueDAO;
@@ -24,5 +24,17 @@ public class VenueService {
     public List<Venue> getAllVenue() {
         List<Venue> list = venueDAO.getAllVenue();
         return list;
+    }
+
+    public boolean insertVenue(Venue venue) {
+        return venueDAO.insertVenue(venue);
+    }
+
+    public boolean updateVenueBaseInfo(Venue venue) {
+        return venueDAO.updateVenueBaseInfo(venue);
+    }
+
+    public boolean delVenue(String venueid) {
+        return venueDAO.delVenue(venueid);
     }
 }

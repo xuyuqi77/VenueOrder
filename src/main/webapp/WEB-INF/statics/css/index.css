@@ -54,3 +54,8 @@
 .liebiao td:last-child {
     width: 150px;
 }
+
+
+.col-md-6 footer-grid-in li.bslogin {
+    color: #39b3d7;
+}

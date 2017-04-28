@@ -40,7 +40,7 @@
                 </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
-                        <a href="login">登录</a>
+                        <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
                         <a href="login">欢迎，${sessionScope.username}</a>
@@ -89,7 +89,10 @@
 </br>
 </br>
 <div id="about">
-    <div class="about-word">此系统为徐煜企的毕业设计</div>
+    <div class="about-word">
+        此系统为徐煜企的毕业设计
+        联系方式:601026825@qq.com
+    </div>
 </div>
 </br>
 </br>
@@ -97,11 +100,19 @@
     <div class="container">
         <div class="footer-bottom-at">
             <div class="col-md-6 footer-grid">
-                <h3>Rugby</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="col-md-6 footer-grid-in">
-                <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+                <ul class="footer-nav">
+                    <li class="active"><a href="index">首页</a></li>
+                    <li><a href="venue">场馆</a></li>
+                    <li><a href="order">场馆预订</a></li>
+                    <li><a href="picture">相册</a></li>
+                    <li><a href="about">相关</a></li>
+                </ul>
+                <p class="footer-class">
+                    Copyright &copy; 2017 安徽大学徐煜企版权所有 |
+                    <a href="bslogin">后台登录</a>
+                </p>
             </div>
             <div class="clearfix"> </div>
         </div>

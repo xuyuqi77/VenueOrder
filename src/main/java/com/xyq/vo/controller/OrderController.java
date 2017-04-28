@@ -1,15 +1,13 @@
 package com.xyq.vo.controller;
 
-import com.xyq.vo.common.Trans;
+import com.xyq.vo.common.Tools.Trans;
 import com.xyq.vo.service.OrderService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**

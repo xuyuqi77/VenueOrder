@@ -78,7 +78,7 @@
                 </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
-                        <a href="login">登录</a>
+                        <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
                         <a href="login">欢迎，${sessionScope.username}</a>
@@ -152,31 +152,31 @@
             </div>
         </div>
         <%--<div class="badoo" style="margin-left: 20px;display: inline;">--%>
-            <%--<div class='A53DB362D4C16471DB13E901CC9F471C4'>--%>
-                <%--<span>共27条记录</span>--%>
-                <%--<span class='disabled'>首页</span>--%>
-                <%--<span class='disabled'>前一页</span>--%>
-                <%--<span class='current' title='1'>1</span>--%>
-                <%--<a href='' title='2'>2</a>--%>
-                <%--<a href='' title='3'>3</a>--%>
-                <%--<a href='' title='2'>后一页</a>--%>
-                <%--<a href='' title='3'>末页</a>--%>
-                <%--<span>当前[1/3]页</span>--%>
-            <%--</div>--%>
-            <%--<script type="text/javascript">--%>
-            <%--$(function(){--%>
-                <%--$(".A53DB362D4C16471DB13E901CC9F471C4 a").click(function(){--%>
-                    <%--var $pf=$("form#phForm");--%>
-                    <%--var currentPage=$(this).attr("title");--%>
-                    <%--var varPageSize="<input type='hidden' name='pageUtil.pageSize' value='6' id='pageSize'/>";--%>
-                    <%--var varCurrPage="<input type='hidden' name='pageUtil.currentPage' value='"+currentPage+"' id='currentPage' class='currentPage'/>";--%>
-                    <%--$pf.append(varPageSize);--%>
-                    <%--$pf.append(varCurrPage);--%>
-                    <%--$pf.submit();--%>
-                    <%--return false;--%>
-                <%--});--%>
+        <%--<div class='A53DB362D4C16471DB13E901CC9F471C4'>--%>
+        <%--<span>共27条记录</span>--%>
+        <%--<span class='disabled'>首页</span>--%>
+        <%--<span class='disabled'>前一页</span>--%>
+        <%--<span class='current' title='1'>1</span>--%>
+        <%--<a href='' title='2'>2</a>--%>
+        <%--<a href='' title='3'>3</a>--%>
+        <%--<a href='' title='2'>后一页</a>--%>
+        <%--<a href='' title='3'>末页</a>--%>
+        <%--<span>当前[1/3]页</span>--%>
+        <%--</div>--%>
+        <%--<script type="text/javascript">--%>
+        <%--$(function(){--%>
+        <%--$(".A53DB362D4C16471DB13E901CC9F471C4 a").click(function(){--%>
+        <%--var $pf=$("form#phForm");--%>
+        <%--var currentPage=$(this).attr("title");--%>
+        <%--var varPageSize="<input type='hidden' name='pageUtil.pageSize' value='6' id='pageSize'/>";--%>
+        <%--var varCurrPage="<input type='hidden' name='pageUtil.currentPage' value='"+currentPage+"' id='currentPage' class='currentPage'/>";--%>
+        <%--$pf.append(varPageSize);--%>
+        <%--$pf.append(varCurrPage);--%>
+        <%--$pf.submit();--%>
+        <%--return false;--%>
+        <%--});--%>
 
-                <%--$("form#phForm").submit(function(){--%>
+        <%--$("form#phForm").submit(function(){--%>
                     <%--var $pf=$(this);--%>
                     <%--var callback=$pf.attr("callback");--%>
                     <%--if(callback) {--%>
@@ -230,11 +230,19 @@
     <div class="container">
         <div class="footer-bottom-at">
             <div class="col-md-6 footer-grid">
-                <h3>Rugby</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div class="col-md-6 footer-grid-in">
-                <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+                <ul class="footer-nav">
+                    <li class="active"><a href="index">首页</a></li>
+                    <li><a href="venue">场馆</a></li>
+                    <li><a href="order">场馆预订</a></li>
+                    <li><a href="picture">相册</a></li>
+                    <li><a href="about">相关</a></li>
+                </ul>
+                <p class="footer-class">
+                    Copyright &copy; 2017 安徽大学徐煜企版权所有 |
+                    <a href="bslogin">后台登录</a>
+                </p>
             </div>
             <div class="clearfix"> </div>
         </div>

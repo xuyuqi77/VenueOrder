@@ -9,29 +9,22 @@ import java.util.Date;
  * 用户表
  * Created by yqxu2 on 2017/2/16.
  */
-@Entity
-@Table(name = "user")
 public class User {
     /**
      * 用户ID
      */
-    @Id
-    @GeneratedValue
     private String user_id;
     /**
      * 登录账号
      */
-    @Column(name = "login_name")
     private String login_name;
     /**
      * 登录密码
      */
-    @Column(name = "password")
     private String password;
     /**
      * 用户名称
      */
-    @Column(name = "user_name")
     private String user_name;
 //    /**
 //     * 用户权限
@@ -40,20 +33,27 @@ public class User {
     /**
      * 角色ID
      */
-    @Column(name = "role_id")
     private String role_id;
     /**
      * 最近登录时间
      */
-    @Column(name = "lastlogintime")
     private String lastlogintime;
     /**
      * 预订状态
      */
-    @Column(name = "ordered")
     private String ordered;
+    /**
+     * 自定义权限
+     */
+    private String rights;
+
+    private Role role;
+
+    private Page page;
+
 
     public User() {
+        this.page = new Page();
     }
 
     public User(String user_id, String login_name, String password, String user_name, String role_id, String lastlogintime, String ordered) {
@@ -122,6 +122,34 @@ public class User {
         this.ordered = ordered;
     }
 
+    public String getRights() {
+        return rights;
+    }
+
+    public void setRights(String rights) {
+        this.rights = rights;
+    }
+
+    public Role getRole() {
+        if (role == null)
+            role = new Role();
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Page getPage() {
+        if (page == null)
+            page = new Page();
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -134,4 +162,5 @@ public class User {
                 ", ordered='" + ordered + '\'' +
                 '}';
     }
+
 }

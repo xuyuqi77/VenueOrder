@@ -1,3 +1,8 @@
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 #wrapper{
     width:960px;
     height: 600px;

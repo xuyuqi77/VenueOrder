@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,14 +25,52 @@ public class VenueDAO {
     public List<Venue> getAllVenue() {
         String sql = "select * from venue";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<Venue> list = query.list();
-//        for (Object[] obj1 : list) {
-//            for (Object obj2 : obj1) {
-//                System.out.print(obj2 + " ");
-//            }
-//            System.out.println();
-//        }
-        return list;
+        List<Venue> listvenue = new ArrayList<Venue>();
+        List<Object[]> lists = query.list();
+        if (query != null) {
+            for (Object[] list: lists) {
+                Venue venue = new Venue();
+                venue.setVenue_id((String) list[0]);
+                venue.setVenue_name((String) list[1]);
+                venue.setVenue_description((String) list[2]);
+                listvenue.add(venue);
+            }
+        }
+        return listvenue;
+    }
+
+    /**
+     * 更新场馆基本信息
+     * @return
+     */
+    public boolean updateVenueBaseInfo(Venue venue) {
+        String sql = "update venue set venue_name = '" + venue.getVenue_name() + "'" +
+                " where venue_id = '" + venue.getVenue_id() + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        if (query != null) {
+            int sf = query.executeUpdate();
+            if (sf == 1)
+                return true;
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 添加新场馆
+     * @return
+     */
+    public boolean insertVenue(Venue venue) {
+        String sql = "insert into venue(venue_id,venue_name) " +
+                "values('" + String.valueOf(getVenueNum() + 1) + "','" +venue.getVenue_name() + "');";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        if (query != null) {
+            int sf = query.executeUpdate();
+            if (sf == 1)
+                return true;
+            return false;
+        }
+        return false;
     }
 
     /**
@@ -59,5 +99,31 @@ public class VenueDAO {
             return str;
         }
         return null;
+    }
+
+    /**
+     * 获取场馆数量
+     * @return
+     */
+    public int getVenueNum() {
+        String sql = "select count(venue_id) from venue;";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        List<BigInteger> list = query.list();
+        int num = list.get(0).intValue();
+        return num;
+    }
+
+    /**
+     * 删除场馆
+     * @param venueid
+     * @return
+     */
+    public boolean delVenue(String venueid) {
+        String sql = "delete from venue where venue_id = '" + venueid + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        int sf = query.executeUpdate();
+        if (sf == 1)
+            return true;
+        return false;
     }
 }

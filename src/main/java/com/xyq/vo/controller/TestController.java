@@ -1,14 +1,12 @@
 package com.xyq.vo.controller;
 
-import com.xyq.vo.common.Trans;
+import com.xyq.vo.common.Tools.Trans;
 import com.xyq.vo.service.OrderService;
 import com.xyq.vo.service.SportService;
-import com.xyq.vo.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -43,8 +41,8 @@ public class TestController {
      */
     @RequestMapping("/index")
     public String toIndex(HttpServletRequest request) {
-        List<Object[]> list = sportService.showSportList();
-        request.getSession().setAttribute("vp_lists", list);
+        List<Object[]> sportList = sportService.showSportList();
+        request.getSession().setAttribute("vp_lists", sportList);
         return "index";
     }
 

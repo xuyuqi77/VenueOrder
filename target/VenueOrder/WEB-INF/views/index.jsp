@@ -43,7 +43,7 @@
                 </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
-                        <a href="login">登录</a>
+                        <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
                         <a href="login">欢迎，${sessionScope.username}</a>
@@ -102,17 +102,17 @@
                 <ul class="rslides" id="slider">
                     <li>
                         <h3>运动，就是这么简单</h3>
-                        <p>Keep moving</p>
+                        <p>Keep Moving</p>
                         <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                     <li>
                         <h3>享受运动，享受生活</h3>
-                        <p>Enjoy yourself</p>
+                        <p>Enjoy Yourself</p>
                         <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                     <li>
-                        <h3>健康，离不开运动</h3>
-                        <p>Exercise every day</p>
+                        <h3>既然静不下来，那就动起来</h3>
+                        <p>Just Do it</p>
                         <a href="order">立刻预定<i class="glyphicon glyphicon-arrow-right"> </i></a>
                     </li>
                 </ul>
@@ -149,9 +149,6 @@
             <c:forEach items="${a}" var="b" varStatus="b_flag">
                 <td>
                     ${b}
-                    <%--<c:if test="${b_flag.last}">--%>
-                        <%--&nbsp;<a href="order">查看</a>--%>
-                    <%--</c:if>--%>
                 </td>
             </c:forEach>
         </tr>
@@ -163,10 +160,6 @@
     <div class="container">
         <div class="footer-bottom-at">
             <div class="col-md-6 footer-grid">
-                <h3>Rugby</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
             </div>
             <div class="col-md-6 footer-grid-in">
                 <ul class="footer-nav">
@@ -176,7 +169,10 @@
                     <li><a href="picture">相册</a></li>
                     <li><a href="about">相关</a></li>
                 </ul>
-                <p class="footer-class">Copyright &copy; 2015.Company name All rights reserved.More Templates</p>
+                <p class="footer-class">
+                    Copyright &copy; 2017 安徽大学徐煜企版权所有 |
+                    <a href="bslogin">后台登录</a>
+                </p>
             </div>
             <div class="clearfix"></div>
         </div>

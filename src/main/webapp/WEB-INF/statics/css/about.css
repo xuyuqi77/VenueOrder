@@ -1,12 +1,13 @@
 #about {
     width:960px;
-    height: 300px;
+    height: 200px;
     margin:0 auto;
 }
 
 .about-word {
-    height: 260px;
-    line-height: 260px;
+    height: 100px;
+    line-height: 100px;
     text-align: center;
     font-size: large;
+    word-break: break-all;
 }

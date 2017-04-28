@@ -7,63 +7,47 @@ import java.util.Date;
  * 订单表
  * Created by yqxu2 on 2017/2/21.
  */
-@Entity
-@Table(name = "order")
 public class Order {
     /**
      * 订单ID
      */
-    @Id
-    @GeneratedValue
     private String order_id;
 
     /**
      * 订单用户ID
      */
-    @Column(name = "user_id")
     private String user_id;
 
     /**
      * 预订场馆ID
      */
-    @Column(name = "venue_id")
     private String venue_id;
 
     /**
-     * 预订项目ID
+     * 预订项目
      */
-    @Column(name = "sport_id")
-    private String sport_id;
+    private String sport_name;
 
     /**
      * 预订项目场地位置
      */
-    @Column(name = "sport_site")
     private String sport_site;
 
     /**
      * 下单时间
      */
-    @Column(name = "order_date")
-    private Date order_date;
+    private String order_date;
 
     /**
      * 预订使用时间
      */
-    @Column(name = "order_time")
     private String order_time;
 
-    public Order() {
-    }
+    private User user;
 
-    public Order(String user_id, String venue_id, String sport_id, String sport_site, Date order_date, String order_time) {
-        this.user_id = user_id;
-        this.venue_id = venue_id;
-        this.sport_id = sport_id;
-        this.sport_site = sport_site;
-        this.order_date = order_date;
-        this.order_time = order_time;
-    }
+    private Venue venue;
+
+    private String login_name;
 
     public String getOrder_id() {
         return order_id;
@@ -89,12 +73,12 @@ public class Order {
         this.venue_id = venue_id;
     }
 
-    public String getSport_id() {
-        return sport_id;
+    public String getSport_name() {
+        return sport_name;
     }
 
-    public void setSport_id(String sport_id) {
-        this.sport_id = sport_id;
+    public void setSport_name(String sport_name) {
+        this.sport_name = sport_name;
     }
 
     public String getSport_site() {
@@ -105,11 +89,11 @@ public class Order {
         this.sport_site = sport_site;
     }
 
-    public Date getOrder_date() {
+    public String getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Date order_date) {
+    public void setOrder_date(String order_date) {
         this.order_date = order_date;
     }
 
@@ -121,16 +105,31 @@ public class Order {
         this.order_time = order_time;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "order_id='" + order_id + '\'' +
-                ", user_id='" + user_id + '\'' +
-                ", venue_id='" + venue_id + '\'' +
-                ", sport_id='" + sport_id + '\'' +
-                ", sport_site='" + sport_site + '\'' +
-                ", order_date='" + order_date + '\'' +
-                ", order_time='" + order_time + '\'' +
-                '}';
+    public User getUser() {
+        if (user == null)
+            user = new User();
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Venue getVenue() {
+        if (venue == null)
+            venue = new Venue();
+        return venue;
+    }
+
+    public void setVenue(Venue venue) {
+        this.venue = venue;
+    }
+
+    public String getLogin_name() {
+        return login_name;
+    }
+
+    public void setLogin_name(String login_name) {
+        this.login_name = login_name;
     }
 }

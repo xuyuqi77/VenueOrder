@@ -58,7 +58,7 @@ public class UserController {
         loginresult = "success";
         session.setAttribute("username", username);
         session.setAttribute("loginresult", loginresult);
-        return "index";
+        return "redirect:/index";
     }
 
     /**
