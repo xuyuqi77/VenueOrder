@@ -62,7 +62,7 @@ public class VenueDAO {
      */
     public boolean insertVenue(Venue venue) {
         String sql = "insert into venue(venue_id,venue_name) " +
-                "values('" + String.valueOf(getVenueNum() + 1) + "','" +venue.getVenue_name() + "');";
+                "values('" + String.valueOf(getVenueMaxNum() + 1) + "','" +venue.getVenue_name() + "');";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         if (query != null) {
             int sf = query.executeUpdate();
@@ -102,14 +102,14 @@ public class VenueDAO {
     }
 
     /**
-     * 获取场馆数量
+     * 获取最大场馆编号
      * @return
      */
-    public int getVenueNum() {
-        String sql = "select count(venue_id) from venue;";
+    public int getVenueMaxNum() {
+        String sql = "select max(venue_id) from venue;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<BigInteger> list = query.list();
-        int num = list.get(0).intValue();
+        List<String> list = query.list();
+        int num = Integer.parseInt(list.get(0));
         return num;
     }
 

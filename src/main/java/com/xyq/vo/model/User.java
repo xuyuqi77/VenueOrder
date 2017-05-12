@@ -22,6 +22,11 @@ public class User {
      * 登录密码
      */
     private String password;
+
+    /**
+     * 新密码
+     */
+    private String n_password;
     /**
      * 用户名称
      */
@@ -88,6 +93,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getN_password() {
+        return n_password;
+    }
+
+    public void setN_password(String n_password) {
+        this.n_password = n_password;
     }
 
     public String getUser_name() {

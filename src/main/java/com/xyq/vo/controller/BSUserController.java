@@ -61,14 +61,13 @@ public class BSUserController {
      */
     @RequestMapping
     public ModelAndView list(User user, HttpServletRequest request) {
-        String loginname = request.getParameter("login_name");
-        String roleid = request.getParameter("role_id");
-
-        if (StringUtils.isNotEmpty(loginname)) {
-            user.setLogin_name(loginname);
+        String login_name = request.getParameter("login_name");
+        String role_id = request.getParameter("role_id");
+        if (StringUtils.isNotEmpty(login_name)) {
+            user.setLogin_name(login_name);
         }
-        if (StringUtils.isNotEmpty(roleid)) {
-            user.setRole_id(roleid);
+        if (StringUtils.isNotEmpty(role_id)) {
+            user.setRole_id(role_id);
         }
         List<Role> roleList = roleService.listAllRoles();
         List<User> alluserList = userService.listAllUser(user);
@@ -76,8 +75,8 @@ public class BSUserController {
         Page page = (Page) request.getSession().getAttribute("userpage");
         if (page == null){
             page = new Page();
+            page.setCurrentPage(1);
         }
-        page.setCurrentPage(1);
         page.setTotalPage(((alluserList.size() + page.getShowCount() -1) / page.getShowCount()));
         List<User> pageuserList = userService.listPageUser(user, page);
 
@@ -148,6 +147,9 @@ public class BSUserController {
      */
     @RequestMapping(value="/edit")
     public ModelAndView toEdit(@RequestParam String userId){
+        if (StringUtils.isNotEmpty(userId) && (userId.length() == 1)) {
+            userId = "0" + userId;
+        }
         ModelAndView mv = new ModelAndView();
         User user = userService.getUserByUserid(userId);
         List<Role> roleList = roleService.listAllRoles();
@@ -164,6 +166,9 @@ public class BSUserController {
      */
     @RequestMapping(value="/delete")
     public void deleteUser(@RequestParam String userId,PrintWriter out){
+        if (StringUtils.isNotEmpty(userId) && (userId.length() == 1)) {
+            userId = "0" + userId;
+        }
         userService.delUser(userId);
         out.write("success");
         out.close();
@@ -177,6 +182,9 @@ public class BSUserController {
      */
     @RequestMapping(value="/auth")
     public String auth(@RequestParam String userId,Model model){
+        if (StringUtils.isNotEmpty(userId) && (userId.length() == 1)) {
+            userId = "0" + userId;
+        }
         List<Menu> menuList = menuService.listAllMenu();
         User user = userService.getUserByUserid(userId);
         String userRights = user.getRights();

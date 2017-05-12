@@ -12,7 +12,6 @@
     <link href="css/order.css" rel="stylesheet" type="text/css" media="all"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script src="js/order.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/move-top.js"></script>
     <script src="js/easing.js"></script>
@@ -25,6 +24,29 @@
                 $('html,body').animate({scrollTop: $(this.hash).offset().top}, 900);
             });
         });
+        function getOptionValue() {
+            var value = document.getElementById("order_choose_time").value;
+            var venue = "${sessionScope.c_venue}";
+            var sport = "${sessionScope.c_sport}";
+            if(confirm("订单详情\n" + "   场馆:"+ venue+"\n   项目:"+sport+"\n   使用时间:"+value+"\n确定预定吗?")){
+                window.location="http://localhost:8080/vo";
+                window.location.href="submitOrder?option_value=" + value;
+            }
+        }
+        function logout(){
+            if(confirm("确定要退出吗？")){
+                document.location = "login";
+            }
+        }
+        function lastmoney(){
+            var loginname = "${sessionScope.loginname}";
+            var url = "user/lastmoney?loginname="+loginname;
+            $.get(url,function(data){
+                if(data != null){
+                    alert("余额:"+data);
+                }
+            });
+        }
     </script>
 
 
@@ -37,18 +59,17 @@
                 <div class=" header-top-left">
                     <p>安徽大学: <span>计算机科学与技术学院</span></p>
                 </div>
-                <div class=" header-top-right">
-                    <select class="drop-down drop-down-in">
-                        <option value="1">中文</option>
-                    </select>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
                         <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
-                        <a href="login">欢迎，${sessionScope.username}</a>
+                        <a href="javascript:logout();">欢迎，${sessionScope.loginname}</a>
+                        &nbsp;
+                        <a href="orderList?loginname=${sessionScope.loginname}">
+                            <button style="border:0px;background-color: rgba(0,0,0,0.2)">查询订单</button>
+                        </a>
+                        <a href="javascript:lastmoney();">查询余额</a>
                     </c:if>
                 </div>
                 <div class="clearfix"></div>
@@ -80,7 +101,7 @@
     <h2>场馆预定</h2>
 </div>
 </br>
-<div class="title-choose">
+<div class="title-choose" style="width: 420px;">
     <div class="title-choose-venue">
         <span>场馆选择:</span>
         ${sessionScope.c_v_back}
@@ -200,6 +221,11 @@
 <c:if test="${orderresult == 'unenough'}">
     <script>
         alert("预定项目余量不足！");
+    </script>
+</c:if>
+<c:if test="${orderresult == 'arrears'}">
+    <script>
+        alert("账户余额不足！");
     </script>
 </c:if>
 <c:if test="${orderresult == 'userordered'}">

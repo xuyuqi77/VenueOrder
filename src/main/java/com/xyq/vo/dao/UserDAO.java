@@ -1,7 +1,6 @@
 package com.xyq.vo.dao;
 
 import com.xyq.vo.model.Page;
-import com.xyq.vo.model.Role;
 import com.xyq.vo.model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,8 +32,11 @@ public class UserDAO {
      * @param u
      */
     public boolean add(User u) {
+        if (u.getUser_id() == null) {
+            u.setUser_id(String.valueOf(getUserMaxNum() + 1));
+        }
         String sql = "insert into user(user_id, login_name, password, user_name, role_id)" +
-                " values ('" + String.valueOf(getUserNum() + 1) + "', '" + u.getLogin_name() + "', '" +
+                " values ('" + u.getUser_id() + "', '" + u.getLogin_name() + "', '" +
                 u.getPassword() + "', '" + u.getUser_name() + "', '" +
                 u.getRole_id() + "');";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
@@ -55,6 +55,11 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     * 将角色id = roleid的用户设为普通用户
+     * @param roleid
+     * @return
+     */
     public boolean delUserRole(String roleid) {
         String sql = "update user set role_id = '1'" + " where role_id = '" + roleid + "';";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
@@ -65,26 +70,19 @@ public class UserDAO {
     }
 
     /**
-     * 获取所有用户
-     * @return
-     */
-//    public List<User> getAllUser() {
-//        Query query = sessionFactory.getCurrentSession().createQuery("from com.xyq.vo.model.User");
-//        return (List<User>) query.list();
-//    }
-
-    /**
      * 根据用户登录名获取用户
      * @param loginname
      * @return
      */
     public User getUserByLoginname(String loginname) {
-        User user = new User();
         String sql = "select * from user where login_name = '" + loginname +"' ;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         if (query != null) {
             List<Object[]> lists = query.list();
+            if(lists.size() == 0)
+                return null;
             Object[] list = lists.get(0);
+            User user = new User();
             user.setUser_id((String) list[0]);
             user.setLogin_name((String) list[1]);
             user.setPassword((String) list[2]);
@@ -96,9 +94,9 @@ public class UserDAO {
             }
             user.setOrdered((String) list[6]);
             user.setRights((String) list[7]);
+            return user;
         }
-
-        return user;
+        return null;
     }
 
     /**
@@ -112,6 +110,8 @@ public class UserDAO {
         if (query != null) {
             User user = new User();
             List<Object[]> lists = query.list();
+            if (lists.size() == 0)
+                return null;
             Object[] list = lists.get(0);
             user.setUser_id((String) list[0]);
             user.setLogin_name((String) list[1]);
@@ -141,6 +141,8 @@ public class UserDAO {
         if (query != null) {
             User user = new User();
             List<Object[]> list = query.list();
+            if (list.size() == 0)
+                return null;
             Object[] list1 = list.get(0);
             user.setUser_id((String) list1[0]);
             user.setLogin_name((String) list1[1]);
@@ -182,7 +184,6 @@ public class UserDAO {
         return null;
     }
 
-
     /**
      * 设置用户的预定状态
      * @param userid
@@ -209,15 +210,26 @@ public class UserDAO {
         query.executeUpdate();
     }
 
+    public boolean updateUserPassword(User user) {
+        String sql = "update user a set a.password = '" + user.getN_password() + "' " +
+                " where a.password = '" + user.getPassword() + "' and a.user_id = '" + user.getUser_id() + "' " +
+                " and a.login_name = '" + user.getLogin_name() + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        int i = query.executeUpdate();
+        if (i == 1)
+            return true;
+        return false;
+    }
+
     /**
-     * 获取用户数
+     * 获取最大用户编号
      * @return
      */
-    public int getUserNum() {
-        String sql = "select count(user_id) from user;";
+    public int getUserMaxNum() {
+        String sql = "select max(user_id) from user;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<BigInteger> list = query.list();
-        int num = list.get(0).intValue();
+        List<String> list = query.list();
+        int num = Integer.parseInt(list.get(0));
         return num;
     }
 
@@ -338,6 +350,19 @@ public class UserDAO {
      */
     public boolean updateUserRights(User user) {
         String sql = "update user set rights = '" + user.getRights() + "' where user_id = '" + user.getUser_id() + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        int sf = query.executeUpdate();
+        if (sf == 1)
+            return true;
+        return false;
+    }
+
+    /**
+     * 定时任务 将所有用户的预定状态置为 0
+     * @return
+     */
+    public boolean updateAllUserOrder() {
+        String sql = "update user set ordered = '0';";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         int sf = query.executeUpdate();
         if (sf == 1)

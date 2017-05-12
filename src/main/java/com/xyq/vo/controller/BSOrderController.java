@@ -78,8 +78,8 @@ public class BSOrderController {
         Page page = (Page) request.getSession().getAttribute("orderpage");
         if (page == null){
             page = new Page();
+            page.setCurrentPage(1);
         }
-        page.setCurrentPage(1);
         page.setTotalPage(((orderList.size() + page.getShowCount() -1) / page.getShowCount()));
         List<Order> pageorderList = orderService.listPageOrder(order, page);
 
@@ -157,6 +157,9 @@ public class BSOrderController {
      */
     @RequestMapping(value="/edit")
     public ModelAndView toEdit(@RequestParam String orderId){
+        if (StringUtils.isNotEmpty(orderId) && (orderId.length() == 1)) {
+            orderId = "0" + orderId;
+        }
         ModelAndView mv = new ModelAndView();
         Order order = orderService.getOrderById(orderId);
         List<Venue> venueList = venueService.getAllVenue();
@@ -175,6 +178,9 @@ public class BSOrderController {
      */
     @RequestMapping(value="/delete")
     public void deleteUser(@RequestParam String orderId,PrintWriter out){
+        if (StringUtils.isNotEmpty(orderId) && (orderId.length() == 1)) {
+            orderId = "0" + orderId;
+        }
         orderService.delOrderByOrderId(orderId);
         out.write("success");
         out.close();

@@ -105,7 +105,7 @@ public class MenuDAO {
      */
     public boolean addMenu(Menu menu) {
         String sql = "insert into menu(menu_id,menu_name,menu_url,parent_id) " +
-                "values (" + (getMenuNum()+1) + ",'" + menu.getMenuName() + "','" + menu.getMenuUrl() + "'," + menu.getParentId() +
+                "values (" + (getMenuMaxNum()+1) + ",'" + menu.getMenuName() + "','" + menu.getMenuUrl() + "'," + menu.getParentId() +
                 ");";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         if (query != null) {
@@ -153,14 +153,14 @@ public class MenuDAO {
     }
 
     /**
-     * 获取角色数量
+     * 获取最大角色编号
      * @return
      */
-    public int getMenuNum() {
-        String sql = "select count(menu_id) from menu;";
+    public int getMenuMaxNum() {
+        String sql = "select (menu_id) from menu;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<BigInteger> list = query.list();
-        int num = list.get(0).intValue();
+        List<String> list = query.list();
+        int num = Integer.parseInt(list.get(0));
         return num;
     }
 }

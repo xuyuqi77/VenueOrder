@@ -62,8 +62,8 @@ public class BSSportController {
         Page page = (Page) request.getSession().getAttribute("sportpage");
         if (page == null){
             page = new Page();
+            page.setCurrentPage(1);
         }
-        page.setCurrentPage(1);
         page.setTotalPage(((sportList.size() + page.getShowCount() -1) / page.getShowCount()));
         List<Sport> pagesportList = sportService.listPageSport(sport, page);
 
@@ -136,6 +136,9 @@ public class BSSportController {
      */
     @RequestMapping(value="/edit")
     public ModelAndView toEdit(@RequestParam String sportId){
+        if (StringUtils.isNotEmpty(sportId) && (sportId.length() == 1)) {
+            sportId = "0" + sportId;
+        }
         ModelAndView mv = new ModelAndView();
         Sport sport = sportService.getSportById(sportId);
         List<Venue> venueList = venueService.getAllVenue();
@@ -154,6 +157,9 @@ public class BSSportController {
      */
     @RequestMapping(value="/delete")
     public void deleteUser(@RequestParam String sportId,PrintWriter out){
+        if (StringUtils.isNotEmpty(sportId) && (sportId.length() == 1)) {
+            sportId = "0" + sportId;
+        }
         sportService.delSport(sportId);
         out.write("success");
         out.close();

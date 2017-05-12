@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,7 @@ public class RoleDAO {
      */
     public boolean insertRole(Role role) {
         String sql = "insert into role(role_id,role_name) " +
-                "values('" + String.valueOf(getRoleNum() + 1) + "','" +role.getRole_name() + "');";
+                "values('" + String.valueOf(getRoleMaxNum() + 1) + "','" +role.getRole_name() + "');";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         if (query != null) {
             int sf = query.executeUpdate();
@@ -121,14 +120,14 @@ public class RoleDAO {
     }
 
     /**
-     * 获取角色数量
+     * 获取最大角色编号
      * @return
      */
-    public int getRoleNum() {
-        String sql = "select count(role_id) from role;";
+    public int getRoleMaxNum() {
+        String sql = "select max(role_id) from role;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<BigInteger> list = query.list();
-        int num = list.get(0).intValue();
+        List<String> list = query.list();
+        int num = Integer.parseInt(list.get(0));
         return num;
     }
 

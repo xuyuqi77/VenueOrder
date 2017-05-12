@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>角色</title>
+<title>场馆</title>
 <link type="text/css" rel="stylesheet" href="css/users.css"/>
 </head>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="main_table">
 		<tr class="main_head">
 			<th>序号</th>
-			<th>角色名称</th>
+			<th>场馆名称</th>
 			<th>操作</th>
 		</tr>
 		<c:choose>

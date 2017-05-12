@@ -101,7 +101,7 @@
 				});
     		dg.ShowDialog();
 		}
-		
+
 		function editUser(userId){
 			var dg = new $.dialog({
 				title:'修改用户',

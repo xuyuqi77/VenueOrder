@@ -45,7 +45,7 @@ public class BSVenueController {
     }
 
     /**
-     * 保存角色信息
+     * 保存场馆信息
      *
      * @param out
      */

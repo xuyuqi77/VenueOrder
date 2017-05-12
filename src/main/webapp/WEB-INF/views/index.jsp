@@ -23,6 +23,24 @@
             });
         });
     </script>
+    <script>
+        function logout(){
+            if(confirm("确定要退出吗？")){
+                var url = "user/loginout";
+                $.get(url);
+                document.location = "index";
+            }
+        }
+        function lastmoney(){
+            var loginname = "${sessionScope.loginname}";
+            var url = "user/lastmoney?loginname="+loginname;
+            $.get(url,function(data){
+                if(data != null){
+                    alert("余额:"+data);
+                }
+            });
+        }
+    </script>
     <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 </head>
@@ -35,18 +53,17 @@
                 <div class=" header-top-left">
                     <p>安徽大学: <span>计算机科学与技术学院</span></p>
                 </div>
-                <div class=" header-top-right">
-                    <select class="drop-down drop-down-in">
-                        <option value="1">中文</option>
-                    </select>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
                         <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
-                        <a href="login">欢迎，${sessionScope.username}</a>
+                        <a href="javascript:logout();">欢迎，${sessionScope.loginname}</a>
+                        &nbsp;
+                        <a href="orderList?loginname=${sessionScope.loginname}">
+                            <button style="border:0px;background-color: rgba(0,0,0,0.2)">查询订单</button>
+                        </a>
+                        <a href="javascript:lastmoney();">查询余额</a>
                     </c:if>
                 </div>
                 <div class="clearfix"></div>
@@ -129,13 +146,7 @@
     <table class= "bt" align="center">
         <thead>
             <tr class="bt_tr">
-                <th width="352px" bgcolor="#CDCD9A">
-                    <%
-                        SimpleDateFormat sdf =
-                                new SimpleDateFormat ("yyyy-MM-dd");
-                        out.print(sdf.format(new Date()));
-                    %>
-                </th>
+                <th width="352px" bgcolor="#CDCD9A">场馆项目</th>
                 <th width="271px" bgcolor="#CDCD9A">开放时间</th>
                 <th bgcolor="#CDCD9A">剩余数量</th>
             </tr>
@@ -181,6 +192,7 @@
         $(document).ready(function () {
             $().UItoTop({easingType: 'easeOutQuart'});
         });
+
     </script>
     <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 </div>

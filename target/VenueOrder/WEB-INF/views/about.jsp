@@ -20,6 +20,20 @@
                 $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
             });
         });
+        function logout(){
+            if(confirm("确定要退出吗？")){
+                document.location = "login";
+            }
+        }
+        function lastmoney(){
+            var loginname = "${sessionScope.loginname}";
+            var url = "user/lastmoney?loginname="+loginname;
+            $.get(url,function(data){
+                if(data != null){
+                    alert("余额:"+data);
+                }
+            });
+        }
     </script>
 
 </head>
@@ -32,18 +46,17 @@
                 <div class=" header-top-left">
                     <p>安徽大学: <span>计算机科学与技术学院</span></p>
                 </div>
-                <div class=" header-top-right">
-                    <select class="drop-down drop-down-in">
-                        <option value="1">中文</option>
-                    </select>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
                         <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
-                        <a href="login">欢迎，${sessionScope.username}</a>
+                        <a href="javascript:logout();">欢迎，${sessionScope.loginname}</a>
+                        &nbsp;
+                        <a href="orderList?loginname=${sessionScope.loginname}">
+                            <button style="border:0px;background-color: rgba(0,0,0,0.2)">查询订单</button>
+                        </a>
+                        <a href="javascript:lastmoney();">查询余额</a>
                     </c:if>
                 </div>
                 <div class="clearfix"></div>
@@ -56,11 +69,8 @@
                 <div class="logo">
                     <a href="index.html"><h1>场馆预订系统</h1></a>
                 </div>
-
-
                 <div class="top-nav">
                     <span class="menu"><img src="images/menu.png" alt=""> </span>
-
                     <ul>
                         <li><a href="index">首页</a></li>
                         <li><a href="venue">场馆</a></li>
@@ -74,9 +84,7 @@
                             });
                         });
                     </script>
-
                 </div>
-
                 <div class="clearfix"> </div>
             </div>
         </div>

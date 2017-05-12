@@ -2,7 +2,6 @@ package com.xyq.vo.service;
 
 import com.xyq.vo.dao.UserDAO;
 import com.xyq.vo.model.Page;
-import com.xyq.vo.model.Role;
 import com.xyq.vo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,9 @@ public class UserService {
     }
 
     public boolean addUser(User user) {
+        User u = userDAO.getUserByLoginname(user.getLogin_name());
+        if (u != null)
+            return false;
         return userDAO.add(user);
     }
 
@@ -45,7 +47,7 @@ public class UserService {
     }
 
     public int getUserNum() {
-        return userDAO.getUserNum();
+        return userDAO.getUserMaxNum();
     }
 
     public User getUserByNameAndPwd(String loginname, String password) {
@@ -54,6 +56,10 @@ public class UserService {
 
     public void updateLastLogin(User user) {
         userDAO.updateLastLogin(user);
+    }
+
+    public boolean updateUserPassword(User user) {
+        return userDAO.updateUserPassword(user);
     }
 
     public List<User> listAllUser(User user) {
@@ -70,5 +76,9 @@ public class UserService {
 
     public boolean updateUserRights(User user) {
         return userDAO.updateUserRights(user);
+    }
+
+    public boolean updateAllUserOrder() {
+        return userDAO.updateAllUserOrder();
     }
 }

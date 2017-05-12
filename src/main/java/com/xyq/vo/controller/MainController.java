@@ -1,8 +1,11 @@
 package com.xyq.vo.controller;
 
 import com.xyq.vo.common.Tools.Trans;
+import com.xyq.vo.model.Sport;
+import com.xyq.vo.model.Venue;
 import com.xyq.vo.service.OrderService;
 import com.xyq.vo.service.SportService;
+import com.xyq.vo.service.VenueService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,21 +15,25 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * 测试控制层
+ * 主控制层
  * Created by yqxu2 on 2017/2/16.
  */
 @Controller
 @RequestMapping("/")
-public class TestController {
+public class MainController {
 
     private SportService sportService;
-
-
+    private VenueService venueService;
     private OrderService orderService;
 
     @Autowired
     public void setSportService(SportService sportService) {
         this.sportService = sportService;
+    }
+
+    @Autowired
+    public void setVenueService(VenueService venueService) {
+        this.venueService = venueService;
     }
 
     @Autowired
@@ -55,8 +62,11 @@ public class TestController {
         if (request.getSession().getAttribute("orderTable") == null) {
             List<Object[]> list = orderService.listOrderTable("","");
             request.getSession().setAttribute("orderTable", list);
-            request.getSession().setAttribute("c_v_back", Trans.toOrderChooseVenue(null));
-            request.getSession().setAttribute("c_s_back", Trans.toOrderChooseSport(null));
+            List<Venue> venueList = venueService.getAllVenue();
+            List<Sport> sportList = sportService.getAllSportName();
+            // 选择项目标红
+            request.getSession().setAttribute("c_v_back", Trans.toOrderChooseVenue(null, venueList));
+            request.getSession().setAttribute("c_s_back", Trans.toOrderChooseSport(null, sportList));
         }
         return "order";
     }

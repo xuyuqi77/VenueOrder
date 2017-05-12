@@ -24,6 +24,10 @@ $(function(){
 
 });
 
+function sleep(d){
+    for(var t = Date.now();Date.now() - t <= d;);
+}
+
 function logintab(){
     scrollTo(0);
     $('#switch_qlogin').removeClass("switch_btn_focus").addClass('switch_btn');
@@ -58,53 +62,42 @@ var reMethod = "GET",
     pwdmin = 6;
 
 $(document).ready(function() {
-
     $('#reg').click(function() {
-
-        if ($('#user').val() == "") {
-            $('#user').focus().css({
+        if ($('#lgname').val() == "") {
+            $('#lgname').focus().css({
                 border: "1px solid red",
                 boxShadow: "0 0 2px red"
             });
             $('#userCue').html("<font color='red'><b>×用户名不能为空</b></font>");
             return false;
         }
+        if ($('#lgname').val().length < 3 || $('#lgname').val().length > 16) {
 
-
-
-        if ($('#user').val().length < 3 || $('#user').val().length > 16) {
-
-            $('#user').focus().css({
+            $('#lgname').focus().css({
                 border: "1px solid red",
                 boxShadow: "0 0 2px red"
             });
             $('#userCue').html("<font color='red'><b>×用户名位3-16字符</b></font>");
             return false;
-
         }
         $.ajax({
-            type: reMethod,
-            url: "/member/ajaxyz.php",
-            data: "uid=" + $("#user").val() + '&temp=' + new Date(),
+            type: "GET",
+            url: "user/loginname",
+            data: "loginname=" + $("#lgname").val(),
             dataType: 'html',
             success: function(result) {
-
-                if (result.length > 2) {
-                    $('#user').focus().css({
+                if (result == "t"){
+                    $('#lgname').focus().css({
                         border: "1px solid red",
                         boxShadow: "0 0 2px red"
-                    });$("#userCue").html(result);
-                    return false;
-                } else {
-                    $('#user').css({
-                        border: "1px solid #D7D7D7",
-                        boxShadow: "none"
                     });
+                    $('#userCue').html("<font color='red'><b>用户名已存在</b></font>");
+                    return false;
                 }
-
             }
         });
 
+        sleep(1000);
 
         if ($('#passwd').val().length < pwdmin) {
             $('#passwd').focus();
@@ -116,25 +109,18 @@ $(document).ready(function() {
             $('#userCue').html("<font color='red'><b>×两次密码不一致！</b></font>");
             return false;
         }
-
-        alert("11111");
         if (false) {
             $('#nickname').focus().css({
                 border: "1px solid red",
                 boxShadow: "0 0 2px red"
             });
-            $('#userCue').html("<font color='red'><b>×QQ号码格式不正确</b></font>");return false;
         } else {
             $('#nickname').css({
                 border: "1px solid #D7D7D7",
                 boxShadow: "none"
             });
-
         }
-        alert("22222");
         $('#regUser').submit();
-        alert("33333");
     });
-
-
 });
+

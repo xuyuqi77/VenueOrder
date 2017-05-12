@@ -1,6 +1,10 @@
 package com.xyq.vo.common.Tools;
 
+import com.xyq.vo.model.Sport;
+import com.xyq.vo.model.Venue;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/17.
@@ -8,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Trans {
     /**
      * 转换venue.jsp
+     *
      * @param str
      * @return
      */
@@ -21,31 +26,31 @@ public class Trans {
                     "                        </p>";
         } else if (str.equals("2")) {
             return "<p>\n" +
-                    "                            <b>北体育场</b>\n" +
+                    "                            <b>篮球场</b>\n" +
                     "                        </p>\n" +
                     "                        <p>\n" +
-                    "                            这是北体育场\n" +
+                    "                            这是篮球场\n" +
                     "                        </p>";
         } else if (str.equals("3")) {
             return "<p>\n" +
-                    "                            <b>北篮球场</b>\n" +
+                    "                            <b>北运动场</b>\n" +
                     "                        </p>\n" +
                     "                        <p>\n" +
-                    "                            这是北篮球场。\n" +
+                    "                            这是北运动场。\n" +
                     "                        </p>";
         } else if (str.equals("4")) {
             return "<p>\n" +
-                    "                            <b>南篮球场</b>\n" +
+                    "                            <b>南运动场</b>\n" +
                     "                        </p>\n" +
                     "                        <p>\n" +
-                    "                            这是南篮球场。\n" +
+                    "                            这是南运动场。\n" +
                     "                        </p>";
         } else if (str.equals("5")) {
             return "<p>\n" +
-                    "                            <b>南足球场</b>\n" +
+                    "                            <b>网球场</b>\n" +
                     "                        </p>\n" +
                     "                        <p>\n" +
-                    "                            这是南足球场\n" +
+                    "                            这是网球场\n" +
                     "                        </p>";
         }
         return null;
@@ -57,6 +62,7 @@ public class Trans {
 
     /**
      * 转换picture.jsp
+     *
      * @param str
      * @return
      */
@@ -64,13 +70,13 @@ public class Trans {
         if (str.equals("1")) {
             return "体育馆";
         } else if (str.equals("2")) {
-            return "北体育场";
+            return "篮球场";
         } else if (str.equals("3")) {
-            return "北篮球场";
+            return "北运动场";
         } else if (str.equals("4")) {
-            return "南篮球场";
+            return "南运动场";
         } else if (str.equals("5")) {
-            return "南足球场";
+            return "网球场";
         }
         return null;
     }
@@ -97,7 +103,7 @@ public class Trans {
                     "                    <img alt=\"\" src=\"images/pictures/teacher5.jpg\" title=\"1\" width=\"215px\" height=\"138px\">\n" +
                     "                    <p>5</p>\n" +
                     "                </div>";
-        } else if (str.equals("2")) {
+        } else if (str.equals("3")) {
             return "<div class=\"pic_small\">\n" +
                     "    <img alt=\"\" src=\"images/pictures/ydh1.jpg\" title=\"1\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>1</p>\n" +
@@ -122,7 +128,7 @@ public class Trans {
                     "    <img alt=\"\" src=\"images/pictures/ydh6.jpg\" title=\"6\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>6</p>\n" +
                     "</div>\n";
-        } else if (str.equals("3")) {
+        } else if (str.equals("2")) {
             return "<div class=\"pic_small\">\n" +
                     "    <img alt=\"\" src=\"images/pictures/bask1.jpg\" title=\"1\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>1</p>\n" +
@@ -150,15 +156,15 @@ public class Trans {
                     "</div>";
         } else if (str.equals("5")) {
             return "<div class=\"pic_small\">\n" +
-                    "    <img alt=\"\" src=\"images/pictures/foot1.jpg\" title=\"1\" width=\"215px\" height=\"138px\"></a>\n" +
+                    "    <img alt=\"\" src=\"images/pictures/ten1.jpg\" title=\"1\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>1</p>\n" +
                     "</div>\n" +
                     "<div class=\"pic_small\">\n" +
-                    "    <img alt=\"\" src=\"images/pictures/foot2.jpg\" title=\"2\" width=\"215px\" height=\"138px\"></a>\n" +
+                    "    <img alt=\"\" src=\"images/pictures/ten2.jpg\" title=\"2\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>2</p>\n" +
                     "</div>\n" +
                     "<div class=\"pic_small\">\n" +
-                    "    <img alt=\"\" src=\"images/pictures/foot3.jpg\" title=\"3\" width=\"215px\" height=\"138px\"></a>\n" +
+                    "    <img alt=\"\" src=\"images/pictures/ten3.jpg\" title=\"3\" width=\"215px\" height=\"138px\"></a>\n" +
                     "    <p>3</p>\n" +
                     "</div>";
         }
@@ -166,37 +172,80 @@ public class Trans {
     }
 
     /**
-     *  转换order.jsp
+     * 转换order.jsp
+     *
      * @param str
      * @return
      */
-    public static String toOrderChooseVenue(String str) {
-        if (str == null) {
-            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\">北体育馆</a>\n" +
-                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\">北篮球场</a>";
+    public static String toOrderChooseVenue(String str, List<Venue> venueList) {
+        if (StringUtils.isEmpty(str)) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < venueList.size(); i++) {
+                if (StringUtils.isNotEmpty(venueList.get(i).getVenue_name())) {
+                    if (i != (venueList.size() - 1)) {
+                        sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\">" + venueList.get(i).getVenue_name() + "</a>\n");
+                    } else {
+                        sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\">" + venueList.get(i).getVenue_name() + "</a>");
+                    }
+                }
+            }
+            return sb.toString();
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < venueList.size(); i++) {
+                if (StringUtils.isNotEmpty(venueList.get(i).getVenue_name())) {
+                    if (i != (venueList.size() - 1)) {
+                        if (venueList.get(i).getVenue_name().equals(str)) {
+                            sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\" class=\"cur\">" + venueList.get(i).getVenue_name() + "</a>\n");
+                        } else {
+                            sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\">" + venueList.get(i).getVenue_name() + "</a>\n");
+                        }
+                    } else {
+                        if (venueList.get(i).getVenue_name().equals(str)) {
+                            sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\" class=\"cur\">" + venueList.get(i).getVenue_name() + "</a>");
+                        } else {
+                            sb.append("<a href=\"/vo/afterchoose?c_venue=" + venueList.get(i).getVenue_name() + "\">" + venueList.get(i).getVenue_name() + "</a>");
+                        }
+                    }
+                }
+            }
+            return sb.toString();
         }
-        if (str.equals("北体育馆")) {
-            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\" class=\"cur\">北体育馆</a>" +
-                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\"> 北篮球场</a>";
-        } else if (str.equals("北篮球场")) {
-            return "<a href=\"/vo/afterchoose?c_venue=北体育馆\">北体育馆</a>\n" +
-                    "<a href=\"/vo/afterchoose?c_venue=北篮球场\" class=\"cur\">北篮球场</a>";
-        }
-        return null;
     }
 
-    public static String toOrderChooseSport(String str) {
-        if (str == null) {
-            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\">羽毛球</a>\n" +
-                    "<a href=\"/vo/afterchoose?c_sport=篮球\">篮球</a>";
+    public static String toOrderChooseSport(String str, List<Sport> sportList) {
+        if (StringUtils.isEmpty(str)) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < sportList.size(); i++) {
+                if (StringUtils.isNotEmpty(sportList.get(i).getSport_name())) {
+                    if (i != (sportList.size() - 1)) {
+                        sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\">" + sportList.get(i).getSport_name() + "</a>\n");
+                    } else {
+                        sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\">" + sportList.get(i).getSport_name() + "</a>");
+                    }
+                }
+            }
+            return sb.toString();
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < sportList.size(); i++) {
+                if (StringUtils.isNotEmpty(sportList.get(i).getSport_name())) {
+                    if (i != (sportList.size() - 1)) {
+                        if (sportList.get(i).getSport_name().equals(str)) {
+                            sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\" class=\"cur2\">" + sportList.get(i).getSport_name() + "</a>\n");
+                        } else {
+                            sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\">" + sportList.get(i).getSport_name() + "</a>\n");
+                        }
+                    } else {
+                        if (sportList.get(i).getSport_name().equals(str)) {
+                            sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\" class=\"cur2\">" + sportList.get(i).getSport_name() + "</a>");
+                        } else {
+                            sb.append("<a href=\"/vo/afterchoose?c_sport=" + sportList.get(i).getSport_name() + "\">" + sportList.get(i).getSport_name() + "</a>");
+                        }
+                    }
+                }
+            }
+            return sb.toString();
         }
-        if (str.equals("羽毛球")) {
-            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\" class=\"cur2\">羽毛球</a>\n" +
-                    "<a href=\"/vo/afterchoose?c_sport=篮球\">篮球</a>";
-        } else if (str.equals("篮球")) {
-            return "<a href=\"/vo/afterchoose?c_sport=羽毛球\">羽毛球</a>\n" +
-                    "<a href=\"/vo/afterchoose?c_sport=篮球\" class=\"cur2\">篮球</a>";
-        }
-        return null;
     }
 }

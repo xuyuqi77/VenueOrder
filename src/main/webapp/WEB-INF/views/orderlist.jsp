@@ -5,22 +5,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>项目</title>
+	<title>订单详情</title>
 	<link type="text/css" rel="stylesheet" href="css/users.css"/>
 </head>
 <body>
-<form action="bsorder" method="post" name="orderForm" id="orderForm">
-	<div class="search_div">
-		预定帐号：<input type="text" name="loginName" value="${order.login_name }"/>
-		项目：<input type="text" name="sportName" value="${order.sport_name }"/>
-		预定场馆：<select name="venueId" id="venueId" style="vertical-align: middle;">
-		<option value="">请选择</option>
-		<c:forEach items="${venueList}" var="venue">
-			<option value="${venue.venue_id }" <c:if test="${order.venue_id==venue.venue_id}">selected</c:if>>${venue.venue_name }</option>
-		</c:forEach>
-	</select>
-		<a href="javascript:search();" class="myBtn"><em>查询</em></a>
-	</div>
+<form action="oderList" method="post" name="orderForm" id="orderForm">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="main_table">
 		<tr class="main_head">
 			<th><input type="checkbox" name="sltAll" id="sltAll" onclick="sltAllSport()"/></th>
@@ -44,8 +33,7 @@
 						<td>${order.order_time }</td>
 						<td>${order.order_date}</td>
 						<td>
-							<a href="javascript:editOrder(${order.order_id });">修改</a>
-							| <a href="javascript:delOrder(${order.order_id });">删除</a>
+							<a href="javascript:delOrder(${order.order_id });">取消订单</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -57,17 +45,6 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div class="page_and_btn">
-		<div class="addandexport">
-			<a href="javascript:addOrder();" class="myBtn"><em>新增</em></a>
-			<a href="javascript:exportOrder();" class="myBtn"><em>导出</em></a>
-		</div>
-		<div class="pagemove" style="float:left;margin-left: 30px;">
-			<a href="bsorder?pagemove=1"><em>上一页</em></a>
-			&nbsp;${sessionScope.orderpage.currentPage }/${sessionScope.orderpage.totalPage }&nbsp;
-			<a href="bsorder?pagemove=2"><em>下一页</em></a>
-		</div>
-	</div>
 </form>
 <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="js/datePicker/WdatePicker.js"></script>
@@ -85,55 +62,19 @@
         }
     }
 
-    function addOrder(){
-        //$(".shadow").show();
-        var dg = new $.dialog({
-            title:'新增订单',
-            id:'order_new',
-            width:330,
-            height:300,
-            iconTitle:false,
-            cover:true,
-            maxBtn:false,
-            xButton:true,
-            resize:false,
-            page:'bsorder/add'
-        });
-        dg.ShowDialog();
-    }
-
-    function editOrder(orderId){
-        var dg = new $.dialog({
-            title:'修改订单',
-            id:'order_edit',
-            width:330,
-            height:300,
-            iconTitle:false,
-            cover:true,
-            maxBtn:false,
-            resize:false,
-            page:'bsorder/edit?orderId='+orderId
-        });
-        dg.ShowDialog();
-    }
-
-    function delOrder(orderId){
+    function delOrder(orderId,orderTime){
         if(confirm("确定要删除该记录？")){
-            var url = "bsorder/delete?orderId="+orderId;
+            var url = "deleteorder?orderId="+orderId;
             $.get(url,function(data){
+                if(data=="datefalse"){
+                    alert("只能取消今日订单");
+				}
                 if(data=="success"){
+                    alert("取消成功");
                     document.location.reload();
                 }
             });
         }
-    }
-
-    function search(){
-        $("#orderForm").submit();
-    }
-
-    function exportOrder(){
-        document.location = "bsorder/excel";
     }
 </script>
 </body>

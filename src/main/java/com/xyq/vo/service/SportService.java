@@ -49,6 +49,10 @@ public class SportService {
         return sportDAO.getAllSport(sport);
     }
 
+    public List<Sport> getAllSportName() {
+        return sportDAO.getAllSportName();
+    }
+
     public List<Sport> listPageSport(Sport sport, Page page) {
         return sportDAO.listPageSport(sport, page);
     }
@@ -79,5 +83,9 @@ public class SportService {
 
     public boolean updateSportBaseInfo(Sport sport) {
         return sportDAO.updateSportBaseInfo(sport);
+    }
+
+    public boolean updateAllSportNum() {
+        return sportDAO.updateAllSportNum();
     }
 }

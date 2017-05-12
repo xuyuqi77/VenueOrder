@@ -21,6 +21,20 @@
                 $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
             });
         });
+        function logout(){
+            if(confirm("确定要退出吗？")){
+                document.location = "login";
+            }
+        }
+        function lastmoney(){
+            var loginname = "${sessionScope.loginname}";
+            var url = "user/lastmoney?loginname="+loginname;
+            $.get(url,function(data){
+                if(data != null){
+                    alert("余额:"+data);
+                }
+            });
+        }
     </script>
     <script type="text/javascript">
         function AutoScroll(obj){
@@ -70,18 +84,17 @@
                 <div class=" header-top-left">
                     <p>安徽大学: <span>计算机科学与技术学院</span></p>
                 </div>
-                <div class=" header-top-right">
-                    <select class="drop-down drop-down-in">
-                        <option value="1">中文</option>
-                    </select>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="header-top-login">
                     <c:if test="${sessionScope.loginresult == 'fail' or null == sessionScope.loginresult}">
                         <a href="login">用户登录</a>
                     </c:if>
                     <c:if test="${sessionScope.loginresult == 'success'}">
-                        <a href="login">欢迎，${sessionScope.username}</a>
+                        <a href="javascript:logout();">欢迎，${sessionScope.loginname}</a>
+                        &nbsp;
+                        <a href="orderList?loginname=${sessionScope.loginname}">
+                            <button style="border:0px;background-color: rgba(0,0,0,0.2)">查询订单</button>
+                        </a>
+                        <a href="javascript:lastmoney();">查询余额</a>
                     </c:if>
                 </div>
                 <div class="clearfix"></div>
@@ -128,10 +141,10 @@
             <dl>
                 <dt>按场馆浏览</dt>
                 <dd><a href="picture?ven=1" ><span>体育馆</span></a></dd>
-                <dd><a href="picture?ven=2" ><span>北体育场</span></a></dd>
-                <dd><a href="picture?ven=3" ><span>北篮球场</span></a></dd>
-                <dd><a href="picture?ven=4" ><span>南篮球场</span></a></dd>
-                <dd><a href="picture?ven=5" ><span>南足球场</span></a></dd>
+                <dd><a href="picture?ven=2" ><span>篮球场</span></a></dd>
+                <dd><a href="picture?ven=3" ><span>北运动场</span></a></dd>
+                <dd><a href="picture?ven=4" ><span>南运动场</span></a></dd>
+                <dd><a href="picture?ven=5" ><span>网球场</span></a></dd>
             </dl>
         </div>
 
@@ -151,78 +164,8 @@
                 ${sessionScope.image_pic}
             </div>
         </div>
-        <%--<div class="badoo" style="margin-left: 20px;display: inline;">--%>
-        <%--<div class='A53DB362D4C16471DB13E901CC9F471C4'>--%>
-        <%--<span>共27条记录</span>--%>
-        <%--<span class='disabled'>首页</span>--%>
-        <%--<span class='disabled'>前一页</span>--%>
-        <%--<span class='current' title='1'>1</span>--%>
-        <%--<a href='' title='2'>2</a>--%>
-        <%--<a href='' title='3'>3</a>--%>
-        <%--<a href='' title='2'>后一页</a>--%>
-        <%--<a href='' title='3'>末页</a>--%>
-        <%--<span>当前[1/3]页</span>--%>
-        <%--</div>--%>
-        <%--<script type="text/javascript">--%>
-        <%--$(function(){--%>
-        <%--$(".A53DB362D4C16471DB13E901CC9F471C4 a").click(function(){--%>
-        <%--var $pf=$("form#phForm");--%>
-        <%--var currentPage=$(this).attr("title");--%>
-        <%--var varPageSize="<input type='hidden' name='pageUtil.pageSize' value='6' id='pageSize'/>";--%>
-        <%--var varCurrPage="<input type='hidden' name='pageUtil.currentPage' value='"+currentPage+"' id='currentPage' class='currentPage'/>";--%>
-        <%--$pf.append(varPageSize);--%>
-        <%--$pf.append(varCurrPage);--%>
-        <%--$pf.submit();--%>
-        <%--return false;--%>
-        <%--});--%>
-
-        <%--$("form#phForm").submit(function(){--%>
-                    <%--var $pf=$(this);--%>
-                    <%--var callback=$pf.attr("callback");--%>
-                    <%--if(callback) {--%>
-                        <%--var ret=window[callback].call(window,this);--%>
-                        <%--if(!ret) return false;--%>
-                    <%--}--%>
-                    <%--var m=$pf.attr("method");--%>
-                    <%--if(m.toLowerCase()=="post"){--%>
-                        <%--return true;--%>
-                    <%--}else{--%>
-                        <%--var url=$pf.attr("action");--%>
-                        <%--var includes="";--%>
-                        <%--if(includes==""){--%>
-                            <%--var param=$pf.serialize();--%>
-                            <%--param=(param=="") ? "" : "?"+param;--%>
-                            <%--location.href=url + param;--%>
-                        <%--}else{--%>
-                            <%--var $form=$("<form></form>",{"method":"post","action":""}).appendTo("body");--%>
-                            <%--var arrIncludes=includes.split(",");--%>
-                            <%--var $mmpf=$pf.clone(false);--%>
-                            <%--for(var s in arrIncludes){--%>
-                                <%--var filter="input[name='"+arrIncludes[s]+"']";--%>
-                                <%--filter+=",select[name='"+arrIncludes[s]+"']";--%>
-                                <%--filter+=",textarea[name='"+arrIncludes[s]+"']";--%>
-                                <%--$form.append($mmpf.find(filter).hide());--%>
-                                <%--$mmpf.find(filter).remove();--%>
-                            <%--}--%>
-                            <%--var param=$mmpf.serialize();--%>
-                            <%--param=(param=="") ? "" : "?"+param ;--%>
-                            <%--$form.attr("action",url+param);--%>
-                            <%--$form.submit();--%>
-                        <%--}--%>
-                        <%--return false;--%>
-                    <%--}--%>
-                <%--});--%>
-            <%--});--%>
-        <%--</script>--%>
-        <%--</div>--%>
     </div>
 </div>
-
-
-
-
-
-
 
 </br>
 </br>

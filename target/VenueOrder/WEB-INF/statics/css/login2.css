@@ -84,7 +84,7 @@ input::-ms-clear {
 }
 #web_login{_left:60px;*left:0;}
 .web_login .login_form {
-	width:272px;
+	width:270px;
 	margin:0 auto;
 }
 .web_login .reg_form {
@@ -93,7 +93,7 @@ input::-ms-clear {
 }
 .web_login .input-tips {
 	float:left;
-	margin-top:10px;
+	margin-top:5px;
 	width:50px;
 	height:42px;
 	font-size:16px;
@@ -161,6 +161,12 @@ input::-ms-clear {
 	position:relative;
 	z-index:3;
 }
+.web_login .login_code {
+	height:55px;
+	margin-bottom:10px;
+	position:relative;
+	z-index:3;
+}
 .web_qr_login {
 	position:relative;
 	
@@ -168,6 +174,7 @@ input::-ms-clear {
 }
 
 .cue {
+	width: 300px;
 	height:40px;
 	line-height:40px;
 	font-size:14px;
@@ -233,7 +240,7 @@ input.button_blue:hover
 	text-decoration:none;
 }
 a.zcxy {text-decoration: underline;line-height:58px;margin-left:15px;color: #959ca8;}
-.web_login .login_form {margin-top:30px;}
+.web_login .login_form {margin-top:10px;}
 .web_login .uinArea {
 height: 60px;}
 .header .switch{left:70px;}

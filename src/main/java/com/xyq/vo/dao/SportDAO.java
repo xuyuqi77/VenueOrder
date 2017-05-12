@@ -6,11 +6,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,10 +27,14 @@ public class SportDAO {
         this.sessionFactory = sessionFactory;
     }
 
-
+    /**
+     * 添加项目
+     * @param sport
+     * @return
+     */
     public boolean addSport(Sport sport) {
         String sql = "insert into newsport(sport_id,sport_name,venue_id,opening_times,sport_num) values('" +
-                String.valueOf(getSportNum()+1) + "','" + sport.getSport_name() + "','" + sport.getVenue_id() + "','" +
+                String.valueOf(getSportMaxNum()+1) + "','" + sport.getSport_name() + "','" + sport.getVenue_id() + "','" +
                 sport.getOpenning_times() + "','" + sport.getSport_num() + "');";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
         int sf = query.executeUpdate();
@@ -60,6 +66,11 @@ public class SportDAO {
         return null;
     }
 
+    /**
+     * 根据sportid获取项目
+     * @param sportid
+     * @return
+     */
     public Sport getSportById(String sportid) {
         String sql = "select * from newsport where sport_id ='" + sportid + "';";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql.toString());
@@ -82,16 +93,48 @@ public class SportDAO {
      * @param ordertime
      * @param num
      */
-    public void setSportNumByPar(String venueid, String sportname, String ordertime, int num) {
+    public boolean setSportNumByPar(String venueid, String sportname, String ordertime, int num) {
+        String lastupdatetime = getSportLastUpdateTime(venueid, sportname, ordertime);
         String sportnum = String.valueOf(num);
         String sql =
                 "update newsport a " +
-                        "set a.sport_num = '" + sportnum + "'" +
+                        "set a.sport_num = '" + sportnum + "'," +
+                        " a.last_update_time = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "'" +
                         " where a.venue_id = '" + venueid + "'" +
                         " and a.sport_name = '" + sportname + "'" +
-                        " and a.opening_times = '" + ordertime + "';";
+                        " and a.opening_times = '" + ordertime + "'" +
+                        " and a.last_update_time = '" + lastupdatetime + "';";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        query.executeUpdate();
+        int i = query.executeUpdate();
+        if (i == 1)
+            return true;
+        return false;
+    }
+
+    /**
+     * 设置项目剩余数量
+     * @param venueid
+     * @param sportname
+     * @param ordertime
+     * @param num
+     */
+    public boolean addSportNumByPar(String venueid, String sportname, String ordertime, int num) {
+        String lastupdatetime = getSportLastUpdateTime(venueid, sportname, ordertime);
+        String sportnum = getSportNumByPar(venueid, sportname, ordertime);
+        int snum = Integer.valueOf(sportnum) + num;
+        String sql =
+                "update newsport a " +
+                        "set a.sport_num = '" + String.valueOf(snum) + "'," +
+                        " a.last_update_time = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "'" +
+                        " where a.venue_id = '" + venueid + "'" +
+                        " and a.sport_name = '" + sportname + "'" +
+                        " and a.opening_times = '" + ordertime + "'" +
+                        " and a.last_update_time = '" + lastupdatetime + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        int i = query.executeUpdate();
+        if (i == 1)
+            return true;
+        return false;
     }
 
     /**
@@ -120,6 +163,25 @@ public class SportDAO {
                 s.setSport_id((String) list[0]);
                 s.setSport_name((String) list[1]);
                 s.setVenue_id((String) list[2]);
+                sportList.add(s);
+            }
+        }
+        return sportList;
+    }
+
+    /**
+     * 获取所有运动项目
+     * @return
+     */
+    public List<Sport> getAllSportName() {
+        StringBuilder sql = new StringBuilder("select distinct sport_name from newsport ");
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql.toString());
+        List<Sport> sportList = new ArrayList<Sport>();
+        List<String> lists = query.list();
+        if (query != null) {
+            for (String list: lists) {
+                Sport s = new Sport();
+                s.setSport_name(list);
                 sportList.add(s);
             }
         }
@@ -216,14 +278,14 @@ public class SportDAO {
     }
 
     /**
-     * 获取项目数
+     * 获取最大项目编号
      * @return
      */
-    public int getSportNum() {
-        String sql = "select count(sport_id) from newsport;";
+    public int getSportMaxNum() {
+        String sql = "select max(sport_id) from newsport;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-        List<BigInteger> list = query.list();
-        int num = list.get(0).intValue();
+        List<String> list = query.list();
+        int num = Integer.parseInt(list.get(0));
         return num;
     }
 
@@ -243,6 +305,38 @@ public class SportDAO {
         if (sf == 1)
             return true;
         return false;
+    }
+
+    /**
+     * 定时任务 将所有项目的数量恢复
+     * @return
+     */
+    public boolean updateAllSportNum() {
+        String sql = "update newsport set sport_num = sport_all_num;";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        int sf = query.executeUpdate();
+        if (sf == 1)
+            return true;
+        return false;
+    }
+
+    /**
+     * 获取项目最新更新时间
+     * @param venueid
+     * @param sportname
+     * @param ordertime
+     * @return
+     */
+    public String getSportLastUpdateTime(String venueid, String sportname, String ordertime) {
+        String sql = "select last_update_time from newsport where sport_name = '" + sportname + "' and venue_id = '" +
+                venueid + "' and opening_times = '" + ordertime + "';";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        if (query != null) {
+            List<Timestamp> lists = query.list();
+            Timestamp ts = lists.get(0);
+            return ts.toString();
+        }
+        return null;
     }
 
     public List<String> getOpeningTimes() {

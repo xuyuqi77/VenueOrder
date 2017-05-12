@@ -28,6 +28,7 @@
 			<th>所属场馆</th>
 			<th>开放时间</th>
 			<th>剩余数量</th>
+			<th>操作</th>
 		</tr>
 		<c:choose>
 			<c:when test="${not empty sportList}">
