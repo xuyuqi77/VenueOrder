@@ -8,7 +8,7 @@
     <name>VenueOrder Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <!--<spring.version>4.0.4.RELEASE</spring.version>-->
+        <!--<spring.version>5.3.18</spring.version>-->
         <hibernate.version>4.3.5.Final</hibernate.version>
         <!-- spring版本号 -->
         <spring.version>4.0.4.RELEASE</spring.version>
